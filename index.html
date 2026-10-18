@@ -49,10 +49,14 @@ a{color:inherit}
 h1,h2,h3{font-family:Unbounded,system-ui,sans-serif;line-height:1.15}
 h2{font-weight:500;font-size:clamp(1.4rem,3vw,2rem);margin-bottom:28px}
 
-nav{position:sticky;top:0;z-index:10;display:flex;gap:6px 22px;flex-wrap:wrap;justify-content:flex-end;padding:14px max(20px,calc(50vw - 540px));background:#06020fcc;backdrop-filter:blur(10px);border-bottom:1px solid color-mix(in srgb,var(--v) 20%,transparent)}
+nav{position:sticky;top:0;z-index:10;display:flex;gap:6px 22px;flex-wrap:wrap;align-items:center;justify-content:flex-end;padding:14px max(20px,calc(50vw - 540px));background:#06020fcc;backdrop-filter:blur(10px);border-bottom:1px solid color-mix(in srgb,var(--v) 20%,transparent)}
 nav b{margin-inline-end:auto;font:800 1rem Unbounded,sans-serif;color:var(--lav)}
 nav a{text-decoration:none;color:var(--mut);transition:color .2s}
 nav a:hover{color:var(--lav)}
+#navmenu{display:none;position:absolute;top:100%;inset-inline-end:max(20px,calc(50vw - 540px));flex-direction:column;gap:14px;padding:18px 26px;background:#0a0518f5;backdrop-filter:blur(12px);border:1px solid color-mix(in srgb,var(--v) 30%,transparent);border-top:none;border-radius:0 0 14px 14px;box-shadow:0 14px 30px #000c}
+#navmenu.open{display:flex}
+#mn{font:inherit;font-size:.95rem;font-weight:600;color:var(--txt);background:#0a0414;border:1px solid var(--v);border-radius:8px;padding:4px 12px;cursor:pointer;transition:box-shadow .2s,color .2s}
+#mn:hover{color:var(--lav);box-shadow:0 0 12px color-mix(in srgb,var(--v) 50%,transparent)}
 
 .hero{min-height:72vh;display:flex;align-items:center;padding:60px max(20px,calc(50vw - 540px))}
 .hero h1{font-weight:800;font-size:clamp(2.8rem,10vw,6.5rem);letter-spacing:-.03em;text-shadow:0 0 50px color-mix(in srgb,var(--v) 70%,transparent)}
@@ -191,8 +195,11 @@ html[dir=rtl] .ecard{direction:rtl}
 
 <nav aria-label="Navigation">
   <b>Ilyes</b>
-  <a href="#projets" data-i="0"></a><a href="#competences" data-i="1"></a><a href="#langues" data-i="2"></a><a href="#formation" data-i="53"></a><a href="#evenements" data-i="3"></a><a href="#youtube">YouTube</a><a href="#contact" data-i="4"></a>
+  <div id="navmenu">
+    <a href="#projets" data-i="0"></a><a href="#competences" data-i="1"></a><a href="#langues" data-i="2"></a><a href="#formation" data-i="53"></a><a href="#evenements" data-i="3"></a><a href="#youtube">YouTube</a><a href="#contact" data-i="4"></a>
+  </div>
   <select class="sw" id="sw" aria-label="Language"></select>
+  <button id="mn" type="button" aria-expanded="false" aria-controls="navmenu">☰ Menu</button>
 </nav>
 
 <header class="hero" data-t="violet">
@@ -405,6 +412,18 @@ try { lang = localStorage.getItem("lang") || ""; } catch (e) {}
 if (!L[lang]) lang = L[(navigator.language || "").slice(0,2)] ? navigator.language.slice(0,2) : "en";
 sw.value = lang; render(lang);
 sw.onchange = () => { render(sw.value); try { localStorage.setItem("lang", sw.value); } catch (e) {} };
+
+// Bouton menu (ouvre/ferme les liens de navigation)
+const mn = $("#mn"), navmenu = $("#navmenu");
+const closeMenu = () => { navmenu.classList.remove("open"); mn.setAttribute("aria-expanded", "false"); };
+mn.onclick = e => {
+  e.stopPropagation();
+  const open = navmenu.classList.toggle("open");
+  mn.setAttribute("aria-expanded", String(open));
+};
+navmenu.addEventListener("click", e => { if (e.target.closest("a")) closeMenu(); });
+document.addEventListener("click", e => { if (!e.target.closest("nav")) closeMenu(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeMenu(); });
 
 // Copier le pseudo Discord au clic
 document.addEventListener("click", e => {
