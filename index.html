@@ -190,9 +190,10 @@ html[dir=rtl] .ecard{direction:rtl}
 .btn.off:hover{transform:none;box-shadow:none}
 @media(prefers-reduced-motion:reduce){.edu{height:auto!important}.epin{position:static;height:auto;overflow:visible;padding-block:96px}.etrack{transform:none!important;overflow-x:auto;width:auto;scroll-snap-type:x mandatory;padding-bottom:16px}.ecard{scroll-snap-align:start}.eslide{display:none}}
 
-/* Intro : le nom apparaît au centre puis rejoint sa place */
+/* Intro : nom au centre, il rejoint sa place, la barre haut en premier, puis le reste */
 html.booting{overflow:hidden}
 html.booting nav,html.booting section,html.booting footer,html.booting .hero p,html.booting .btns,html.booting .cell.photo{opacity:0}
+html.booting.step2 nav{opacity:1}
 html.booting .hero h1{opacity:0}
 nav,section,footer,.hero p,.btns{transition:opacity .35s ease}
 .cell.photo{transition:opacity .35s ease,transform .4s cubic-bezier(.18,.9,.32,1),box-shadow .3s,border-color .3s}
@@ -457,7 +458,8 @@ const io = new IntersectionObserver(es => es.forEach(e => {
 }), {rootMargin: "-50% 0px -50% 0px"});
 document.querySelectorAll('[data-t]:not(html)').forEach(el => io.observe(el));
 
-// Intro : « Ilyes » au-dessus de « KECILI » en grand au centre, puis chaque mot rejoint sa place
+// Intro : « Ilyes / KECILI » en grand au centre, il rejoint sa place,
+// puis la barre du haut s’affiche, puis tout le reste
 (function(){
   const root = document.documentElement;
   const h1 = document.querySelector(".hero h1");
@@ -465,12 +467,12 @@ document.querySelectorAll('[data-t]:not(html)').forEach(el => io.observe(el));
   let done = false;
   const finish = () => {
     if(done) return; done = true;
-    root.classList.remove("booting");
+    root.classList.remove("booting", "step2");
     h1.classList.remove("split");
     h1.querySelectorAll("span").forEach(s => s.removeAttribute("style"));
     h1.style.cssText = "";
   };
-  setTimeout(finish, 4500);
+  setTimeout(finish, 5500);
   const run = () => {
     try{
       history.scrollRestoration = "manual";
@@ -488,7 +490,7 @@ document.querySelectorAll('[data-t]:not(html)').forEach(el => io.observe(el));
       void h1.offsetHeight;
       setTimeout(() => { h1.style.transition = "opacity .3s ease"; h1.style.opacity = "1"; }, 250);
       setTimeout(() => {
-        // FLIP : mesurer la position empilée puis animer chaque mot vers sa place finale
+        // FLIP : chaque mot quitte le centre et rejoint sa place dans le h1
         const from = spans.map(s => s.getBoundingClientRect());
         h1.classList.remove("split");
         h1.style.transition = "none";
@@ -505,8 +507,15 @@ document.querySelectorAll('[data-t]:not(html)').forEach(el => io.observe(el));
           s.style.transition = "transform .7s cubic-bezier(.18,.9,.32,1)";
           s.style.transform = "none";
         }));
-      }, 1250);
-      setTimeout(finish, 2050);
+      }, 1300);
+      // Le nom en place : d’abord la barre du haut…
+      setTimeout(() => {
+        h1.querySelectorAll("span").forEach(s => s.removeAttribute("style"));
+        h1.style.cssText = "";
+        root.classList.add("step2");
+      }, 2300);
+      // …puis tout le reste
+      setTimeout(finish, 2850);
     }catch(e){ finish(); }
   };
   const fonts = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
