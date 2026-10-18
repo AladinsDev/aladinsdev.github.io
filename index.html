@@ -354,7 +354,9 @@ trk.addEventListener("wheel", e => {
   const d = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
   if (!d) return;
   const np = p + d / (span || 1);
-  if (np <= 0 || np >= 1) return; // au bord : la page descend normalement
+  if (np < 0 || np > 1) { // déjà au bout dans ce sens : on laisse la page défiler
+    if ((np > 1 && p >= 1) || (np < 0 && p <= 0)) return;
+  }
   e.preventDefault();
   setP(np);
 }, {passive: false});
