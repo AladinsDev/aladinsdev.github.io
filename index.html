@@ -190,21 +190,21 @@ html[dir=rtl] .ecard{direction:rtl}
 .btn.off:hover{transform:none;box-shadow:none}
 @media(prefers-reduced-motion:reduce){.edu{height:auto!important}.epin{position:static;height:auto;overflow:visible;padding-block:96px}.etrack{transform:none!important;overflow-x:auto;width:auto;scroll-snap-type:x mandatory;padding-bottom:16px}.ecard{scroll-snap-align:start}.eslide{display:none}}
 
-/* Intro : nom au centre, il rejoint sa place, la barre haut en premier, puis le reste */
-html.booting{overflow:hidden}
+/* Intro : « Ilyes KECILI » sur une ligne, puis « Ilyes / KECILI » au centre, il rejoint sa place, la barre haut en premier, puis le reste */
+html.booting{overflow-y:scroll}
 html.booting nav,html.booting section,html.booting footer,html.booting .hero p,html.booting .btns,html.booting .cell.photo{opacity:0}
 html.booting.step2 nav{opacity:1}
-html.booting .hero h1{opacity:0}
 nav,section,footer,.hero p,.btns{transition:opacity .35s ease}
 .cell.photo{transition:opacity .35s ease,transform .4s cubic-bezier(.18,.9,.32,1),box-shadow .3s,border-color .3s}
 .hero h1{display:inline-block}
+html.booting .hero h1{white-space:nowrap}
 .hero h1 span{display:inline-block}
 .hero h1.split span{display:block;width:max-content;margin-inline:auto}
 </style>
 <script>
 if(!matchMedia("(prefers-reduced-motion: reduce)").matches){
   document.documentElement.classList.add("booting");
-  setTimeout(function(){document.documentElement.classList.remove("booting")},5000);
+  setTimeout(function(){document.documentElement.classList.remove("booting")},8000);
 }
 </script>
 </head>
@@ -459,7 +459,8 @@ const io = new IntersectionObserver(es => es.forEach(e => {
 }), {rootMargin: "-50% 0px -50% 0px"});
 document.querySelectorAll('[data-t]:not(html)').forEach(el => io.observe(el));
 
-// Intro : « Ilyes / KECILI » en grand au centre, il rejoint sa place,
+// Intro : « Ilyes KECILI » sur une ligne déjà visible, le nom vole au centre,
+// il devient « Ilyes / KECILI », chaque mot rejoint sa place,
 // puis la barre du haut s’affiche, puis tout le reste
 (function(){
   const root = document.documentElement;
@@ -469,56 +470,68 @@ document.querySelectorAll('[data-t]:not(html)').forEach(el => io.observe(el));
   const finish = () => {
     if(done) return; done = true;
     root.classList.remove("booting", "step2");
-    // Remet le titre exactement comme dans le HTML d’origine
-    const clean = h1.textContent.replace(/\s+/g, " ").trim();
     h1.removeAttribute("class");
     h1.removeAttribute("style");
-    h1.textContent = clean;
+    h1.querySelectorAll("span").forEach(s => s.removeAttribute("style"));
   };
-  setTimeout(finish, 5500);
+  setTimeout(finish, 8000);
   const run = () => {
     try{
       history.scrollRestoration = "manual";
       const words = h1.textContent.trim().split(/\s+/);
       h1.innerHTML = words.map(w => `<span>${w}</span>`).join(" ");
       const spans = [...h1.querySelectorAll("span")];
-      h1.classList.add("split");
-      const r = h1.getBoundingClientRect();
-      if(!r.width){ finish(); return; }
-      const S = Math.min(1.8, Math.max(1.2, (root.clientWidth * .85) / r.width));
-      const dx = root.clientWidth / 2 - (r.left + r.width / 2);
-      const dy = root.clientHeight / 2 - (r.top + r.height / 2);
-      h1.style.transition = "none";
-      h1.style.transform = `translate(${dx}px,${dy}px) scale(${S})`;
-      void h1.offsetHeight;
-      setTimeout(() => { h1.style.transition = "opacity .3s ease"; h1.style.opacity = "1"; }, 250);
+      const toCenter = () => {
+        h1.style.transition = "none";
+        h1.style.transform = "none";
+        const r = h1.getBoundingClientRect();
+        if(!r.width) return null;
+        const S = Math.min(1.8, Math.max(1.2, (root.clientWidth * .85) / r.width));
+        return {dx: root.clientWidth / 2 - (r.left + r.width / 2), dy: root.clientHeight / 2 - (r.top + r.height / 2), S};
+      };
+      // 1) « Ilyes KECILI » reste visible sur une ligne, en haut à gauche
+      // 2) puis le nom vole au centre de l’écran
       setTimeout(() => {
-        try{
-          // FLIP : chaque mot quitte le centre et rejoint sa place dans le h1
-          const from = spans.map(s => s.getBoundingClientRect());
-          h1.classList.remove("split");
-          h1.style.transition = "none";
-          h1.style.transform = "none";
-          void h1.offsetHeight;
-          spans.forEach((s, i) => {
-            const to = s.getBoundingClientRect();
-            if(!to.width || !from[i].width) return;
-            s.style.transformOrigin = "left top";
-            s.style.transform = `translate(${from[i].left - to.left}px,${from[i].top - to.top}px) scale(${from[i].width / to.width})`;
-          });
-          void h1.offsetHeight;
-          requestAnimationFrame(() => spans.forEach(s => {
-            s.style.transition = "transform .7s cubic-bezier(.18,.9,.32,1)";
-            s.style.transform = "none";
-          }));
-        }catch(e){ finish(); }
-      }, 1300);
-      // Le nom en place : d’abord la barre du haut…
-      setTimeout(() => {
-        root.classList.add("step2");
-      }, 2300);
-      // …puis tout le reste
-      setTimeout(finish, 2850);
+        const m = toCenter();
+        if(!m){ finish(); return; }
+        h1.style.transition = "transform .7s cubic-bezier(.18,.9,.32,1)";
+        h1.style.transform = `translate(${m.dx}px,${m.dy}px) scale(${m.S})`;
+        // 3) au centre, il se transforme en « Ilyes / KECILI »
+        setTimeout(() => {
+          h1.classList.add("split");
+          h1.style.whiteSpace = "normal";
+          const m2 = toCenter();
+          if(!m2){ finish(); return; }
+          h1.style.transform = `translate(${m2.dx}px,${m2.dy}px) scale(${m2.S})`;
+          // 4) FLIP : chaque mot quitte le centre et rejoint sa place dans le h1
+          setTimeout(() => {
+            try{
+              const from = spans.map(s => s.getBoundingClientRect());
+              h1.classList.remove("split");
+              h1.style.transition = "none";
+              h1.style.transform = "none";
+              void h1.offsetHeight;
+              spans.forEach((s, i) => {
+                const to = s.getBoundingClientRect();
+                if(!to.width || !from[i].width) return;
+                s.style.transformOrigin = "left top";
+                s.style.transform = `translate(${from[i].left - to.left}px,${from[i].top - to.top}px) scale(${from[i].width / to.width})`;
+              });
+              void h1.offsetHeight;
+              requestAnimationFrame(() => spans.forEach(s => {
+                s.style.transition = "transform .7s cubic-bezier(.18,.9,.32,1)";
+                s.style.transform = "none";
+              }));
+            }catch(e){ finish(); }
+          }, 900);
+          // 5) le nom en place : d’abord la barre du haut…
+          setTimeout(() => {
+            root.classList.add("step2");
+          }, 1750);
+          // 6) …puis tout le reste
+          setTimeout(finish, 2250);
+        }, 800);
+      }, 800);
     }catch(e){ finish(); }
   };
   const fonts = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
