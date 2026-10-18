@@ -144,16 +144,16 @@ section::before,footer::before{content:"";position:absolute;top:0;inset-inline:m
 section h2::after{content:"";display:block;width:56px;height:4px;margin-top:12px;border-radius:99px;background:var(--sec);box-shadow:0 0 14px var(--sec)}
 footer{margin-top:20px}
 .btns.socials{margin-top:26px;padding-top:26px;border-top:1px solid color-mix(in srgb,var(--v) 28%,transparent)}
-.btns.socials{flex-wrap:nowrap;gap:10px}
+.btns.socials{flex-wrap:nowrap;gap:10px;overflow-x:auto;padding-bottom:14px;scrollbar-width:thin;scrollbar-color:var(--v) transparent}
+.btns.socials::-webkit-scrollbar{height:6px}
+.btns.socials::-webkit-scrollbar-thumb{background:var(--v);border-radius:99px}
 .btns.socials .btn{flex:none;padding:10px 14px;font-size:.95rem;white-space:nowrap}
-@media(max-width:760px){.btns.socials{overflow-x:auto;padding-top:32px;padding-bottom:10px}}
 /* Photo + section Formation (défilement horizontal piloté par le scroll) */
 .hero{gap:48px;justify-content:space-between;flex-wrap:wrap}
 .hero>div:first-child{flex:1 1 520px;min-width:0}
-.photo{flex:none;width:clamp(200px,26vw,300px);aspect-ratio:4/5;padding:0;display:grid;place-items:center;border-radius:24px}
+.photo{flex:none;width:clamp(200px,26vw,300px);aspect-ratio:4/5;padding:0;display:grid;place-items:center;border-radius:24px;align-self:flex-start;margin-top:-20px}
 .photo img{width:100%;height:100%;object-fit:cover;display:block}
 .photo svg{width:46%;fill:var(--lav);opacity:.35}
-.btns.socials{overflow-x:auto;padding-bottom:14px}
 section[data-t=indigo]{--sec:#6c7bff}
 .edu{padding:0}
 .epin{position:sticky;top:0;height:100vh;height:100dvh;display:flex;flex-direction:column;justify-content:center;gap:28px;overflow:hidden;padding:0 max(20px,calc(50vw - 540px))}
