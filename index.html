@@ -190,27 +190,10 @@ html[dir=rtl] .ecard{direction:rtl}
 .btn.off:hover{transform:none;box-shadow:none}
 @media(prefers-reduced-motion:reduce){.edu{height:auto!important}.epin{position:static;height:auto;overflow:visible;padding-block:96px}.etrack{transform:none!important;overflow-x:auto;width:auto;scroll-snap-type:x mandatory;padding-bottom:16px}.ecard{scroll-snap-align:start}.eslide{display:none}}
 
-/* Intro : « Ilyes KECILI » sur une ligne, puis « Ilyes / KECILI » au centre, il rejoint sa place, la barre haut en premier, puis le reste */
-html.booting nav,html.booting section,html.booting footer,html.booting .hero p,html.booting .btns,html.booting .cell.photo{opacity:0}
-html.booting.step2 nav{opacity:1}
-html.booting::-webkit-scrollbar-thumb{pointer-events:none}
-html.booting::-webkit-scrollbar-button{pointer-events:none}
-html.booting::-webkit-scrollbar-track{pointer-events:none}
-html.booting::-webkit-scrollbar{pointer-events:none}
-html.booting{scrollbar-width:none}
 nav,section,footer,.hero p,.btns{transition:opacity .35s ease}
 .cell.photo{transition:opacity .35s ease,transform .4s cubic-bezier(.18,.9,.32,1),box-shadow .3s,border-color .3s}
 .hero h1{display:inline-block}
-html.booting .hero h1{white-space:nowrap}
-.hero h1 span{display:inline-block}
-.hero h1.split span{display:block;width:max-content;margin-inline:auto}
 </style>
-<script>
-if(!matchMedia("(prefers-reduced-motion: reduce)").matches){
-  document.documentElement.classList.add("booting");
-  setTimeout(function(){document.documentElement.classList.remove("booting")},8000);
-}
-</script>
 </head>
 <body>
 
@@ -462,66 +445,6 @@ const io = new IntersectionObserver(es => es.forEach(e => {
   if (e.isIntersecting) document.documentElement.dataset.t = e.target.dataset.t;
 }), {rootMargin: "-50% 0px -50% 0px"});
 document.querySelectorAll('[data-t]:not(html)').forEach(el => io.observe(el));
-
-// Intro : « Ilyes KECILI » sur une ligne → shrink + split → « Ilyes / KECILI » empilé en haut à gauche
-(function(){
-  const root = document.documentElement;
-  const h1 = document.querySelector(".hero h1");
-  if(!root.classList.contains("booting") || !h1) return;
-  let done = false;
-  const blockWheel = e => e.preventDefault();
-  const blockKeys = e => { if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight","PageUp","PageDown","Home","End"," "].includes(e.key)) e.preventDefault(); };
-  const block = () => { addEventListener("wheel", blockWheel, {passive:false}); addEventListener("touchmove", blockWheel, {passive:false}); addEventListener("keydown", blockKeys); };
-  const unblock = () => { removeEventListener("wheel", blockWheel); removeEventListener("touchmove", blockWheel); removeEventListener("keydown", blockKeys); };
-  block();
-  const finish = () => {
-    if(done) return; done = true;
-    root.classList.remove("booting", "step2");
-    unblock();
-    // Laisse le titre empilé (état final)
-    h1.removeAttribute("style");
-    h1.querySelectorAll("span").forEach(s => s.removeAttribute("style"));
-  };
-  setTimeout(finish, 8000);
-  const run = () => {
-    try{
-      history.scrollRestoration = "manual";
-      const words = h1.textContent.trim().split(/\s+/);
-      h1.innerHTML = words.map(w => `<span>${w}</span>`).join(" ");
-      const spans = [...h1.querySelectorAll("span")];
-      const rect = () => h1.getBoundingClientRect();
-      // 1) « Ilyes KECILI » visible sur une ligne (déjà là via CSS)
-      // 2) shrink + split en « Ilyes / KECILI » à sa place finale
-      setTimeout(() => {
-        const r = rect();
-        // passe en empilé
-        h1.classList.add("split");
-        h1.style.whiteSpace = "normal";
-        // mesure la cible empilée (déjà à sa place)
-        const r2 = rect();
-        // anime depuis l'état 1 ligne vers l'état empillé
-        // on utilise FLIP inverse : from = 1 ligne, to = empilé
-        // mais plus simple : on scale down vers la taille finale
-        h1.style.transition = "transform .7s cubic-bezier(.18,.9,.32,1), opacity .3s ease";
-        h1.style.transformOrigin = "left top";
-        const scale = r2.width / r.width;
-        h1.style.transform = `scale(${scale})`;
-        // fade léger pendant la transition
-        h1.style.opacity = "0.8";
-        setTimeout(() => {
-          h1.style.transition = "";
-          h1.style.transform = "";
-          h1.style.opacity = "";
-          // 3) nav + reste
-          setTimeout(() => root.classList.add("step2"), 300);
-          setTimeout(finish, 800);
-        }, 750);
-      }, 600);
-    }catch(e){ finish(); }
-  };
-  const fonts = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
-  Promise.race([fonts, new Promise(res => setTimeout(res, 1200))]).then(run);
-})();
 </script>
 </body>
 </html>
