@@ -191,7 +191,6 @@ html[dir=rtl] .ecard{direction:rtl}
 @media(prefers-reduced-motion:reduce){.edu{height:auto!important}.epin{position:static;height:auto;overflow:visible;padding-block:96px}.etrack{transform:none!important;overflow-x:auto;width:auto;scroll-snap-type:x mandatory;padding-bottom:16px}.ecard{scroll-snap-align:start}.eslide{display:none}}
 
 /* Intro : « Ilyes KECILI » sur une ligne, puis « Ilyes / KECILI » au centre, il rejoint sa place, la barre haut en premier, puis le reste */
-html.booting{overflow:hidden}
 html.booting nav,html.booting section,html.booting footer,html.booting .hero p,html.booting .btns,html.booting .cell.photo{opacity:0}
 html.booting.step2 nav{opacity:1}
 nav,section,footer,.hero p,.btns{transition:opacity .35s ease}
@@ -467,9 +466,16 @@ document.querySelectorAll('[data-t]:not(html)').forEach(el => io.observe(el));
   const h1 = document.querySelector(".hero h1");
   if(!root.classList.contains("booting") || !h1) return;
   let done = false;
+  const preventScroll = e => {
+    if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight","PageUp","PageDown","Home","End"," "].includes(e.key)) e.preventDefault();
+  };
+  const block = () => { addEventListener("wheel", preventScroll, {passive:false}); addEventListener("touchmove", preventScroll, {passive:false}); addEventListener("keydown", preventScroll); };
+  const unblock = () => { removeEventListener("wheel", preventScroll); removeEventListener("touchmove", preventScroll); removeEventListener("keydown", preventScroll); };
+  block();
   const finish = () => {
     if(done) return; done = true;
     root.classList.remove("booting", "step2");
+    unblock();
     h1.removeAttribute("class");
     h1.removeAttribute("style");
     h1.querySelectorAll("span").forEach(s => s.removeAttribute("style"));
