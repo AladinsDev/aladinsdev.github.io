@@ -333,49 +333,48 @@ $('#hd').dataset.c = D.discord; $('#hd').innerHTML = IC.dc + 'Discord';
 
 const sec = $("#formation"), pin = sec.querySelector(".epin"), trk = $("#etrack"), slide = $("#eslide");
 const RM = matchMedia("(prefers-reduced-motion: reduce)");
-let span = 0;
-const K = 0.55; // facteur : le défilement vertical est plus court que le défilement horizontal
+let span = 0, p = 0;
+function setP(v) {
+  p = Math.min(1, Math.max(0, v));
+  trk.style.transform = `translateX(${-p * span}px)`;
+  slide.value = Math.round(p * 1000);
+}
 function layoutEdu() {
   if (RM.matches) { sec.style.height = ""; trk.style.transform = ""; return; }
   const pad = parseFloat(getComputedStyle(pin).paddingLeft) || 0;
   span = Math.max(0, trk.scrollWidth - (pin.clientWidth - 2 * pad));
-  sec.style.height = (pin.offsetHeight + span * K) + "px";
-  updEdu();
+  sec.style.height = ""; // hauteur naturelle : on traverse la section en défilant normalement
+  setP(p);
 }
-function updEdu() {
-  if (RM.matches) return;
-  const len = span * K;
-  const p = len ? Math.min(1, Math.max(0, -sec.getBoundingClientRect().top / len)) : 0;
-  trk.style.transform = `translateX(${-p * span}px)`;
-  slide.value = Math.round(p * 1000);
-}
-addEventListener("scroll", () => requestAnimationFrame(updEdu), {passive: true});
 addEventListener("resize", layoutEdu);
 addEventListener("load", layoutEdu);
-// La barre horizontale pilote le défilement (glisser le curseur, clavier ou clic sur la barre)
-slide.addEventListener("input", () => {
+// Sur les cartes : la molette fait défiler les cartes horizontalement
+// (et si on est déjà au bout, on laisse la page défiler normalement)
+trk.addEventListener("wheel", e => {
   if (RM.matches) return;
-  scrollTo({top: sec.getBoundingClientRect().top + scrollY + slide.value / 1000 * span * K, behavior: "instant"});
-});
+  const d = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+  if (!d) return;
+  const np = p + d / (span || 1);
+  if (np <= 0 || np >= 1) return; // au bord : la page descend normalement
+  e.preventDefault();
+  setP(np);
+}, {passive: false});
+// La barre horizontale pilote les cartes (glisser le curseur, clavier ou clic)
+slide.addEventListener("input", () => { if (!RM.matches) setP(slide.value / 1000); });
 // Bouton « Passer » : saute toute la section Études
 $("#skip").addEventListener("click", () => {
   const end = sec.getBoundingClientRect().top + scrollY + sec.offsetHeight;
   scrollTo({top: Math.min(end, document.documentElement.scrollHeight - innerHeight), behavior: "smooth"});
 });
-// Glissement horizontal au pavé tactile
-pin.addEventListener("wheel", e => {
-  if (!RM.matches && Math.abs(e.deltaX) > Math.abs(e.deltaY)) { e.preventDefault(); scrollBy(0, e.deltaX); }
-}, {passive: false});
-// Glissement horizontal au doigt
+// Glissement horizontal au doigt sur les cartes
 let tp = null;
-pin.addEventListener("touchstart", e => { tp = [e.touches[0].clientX, e.touches[0].clientY]; }, {passive: true});
-pin.addEventListener("touchmove", e => {
+trk.addEventListener("touchstart", e => { tp = [e.touches[0].clientX, e.touches[0].clientY, p]; }, {passive: true});
+trk.addEventListener("touchmove", e => {
   if (!tp || RM.matches) return;
   const x = e.touches[0].clientX, y = e.touches[0].clientY;
-  if (Math.abs(x - tp[0]) > Math.abs(y - tp[1])) scrollBy(0, tp[0] - x);
-  tp = [x, y];
+  if (Math.abs(x - tp[0]) > Math.abs(y - tp[1])) setP(tp[2] + (tp[0] - x) / (span || 1));
 }, {passive: true});
-pin.addEventListener("touchend", () => { tp = null; });
+trk.addEventListener("touchend", () => { tp = null; });
 $("#photo").innerHTML = D.photo ? `<img src="${D.photo}" alt="Ilyes KECILI">` : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-4.4 0-8 2.2-8 5v3h16v-3c0-2.8-3.6-5-8-5z"/></svg>';
 
 function render(l) {
