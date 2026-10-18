@@ -193,6 +193,11 @@ html[dir=rtl] .ecard{direction:rtl}
 /* Intro : « Ilyes KECILI » sur une ligne, puis « Ilyes / KECILI » au centre, il rejoint sa place, la barre haut en premier, puis le reste */
 html.booting nav,html.booting section,html.booting footer,html.booting .hero p,html.booting .btns,html.booting .cell.photo{opacity:0}
 html.booting.step2 nav{opacity:1}
+html.booting::-webkit-scrollbar-thumb{pointer-events:none}
+html.booting::-webkit-scrollbar-button{pointer-events:none}
+html.booting::-webkit-scrollbar-track{pointer-events:none}
+html.booting::-webkit-scrollbar{pointer-events:none}
+html.booting{scrollbar-width:none}
 nav,section,footer,.hero p,.btns{transition:opacity .35s ease}
 .cell.photo{transition:opacity .35s ease,transform .4s cubic-bezier(.18,.9,.32,1),box-shadow .3s,border-color .3s}
 .hero h1{display:inline-block}
