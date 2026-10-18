@@ -471,11 +471,10 @@ document.querySelectorAll('[data-t]:not(html)').forEach(el => io.observe(el));
   const h1 = document.querySelector(".hero h1");
   if(!root.classList.contains("booting") || !h1) return;
   let done = false;
-  const preventScroll = e => {
-    if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight","PageUp","PageDown","Home","End"," "].includes(e.key)) e.preventDefault();
-  };
-  const block = () => { addEventListener("wheel", preventScroll, {passive:false}); addEventListener("touchmove", preventScroll, {passive:false}); addEventListener("keydown", preventScroll); };
-  const unblock = () => { removeEventListener("wheel", preventScroll); removeEventListener("touchmove", preventScroll); removeEventListener("keydown", preventScroll); };
+  const blockWheel = e => e.preventDefault();
+  const blockKeys = e => { if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight","PageUp","PageDown","Home","End"," "].includes(e.key)) e.preventDefault(); };
+  const block = () => { addEventListener("wheel", blockWheel, {passive:false}); addEventListener("touchmove", blockWheel, {passive:false}); addEventListener("keydown", blockKeys); };
+  const unblock = () => { removeEventListener("wheel", blockWheel); removeEventListener("touchmove", blockWheel); removeEventListener("keydown", blockKeys); };
   block();
   const finish = () => {
     if(done) return; done = true;
