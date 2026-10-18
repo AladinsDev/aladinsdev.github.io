@@ -29,7 +29,7 @@
 :root[data-t=ambre]{--v:#ffb02e;--lav:#ffdc9a;--pink:#ff7a3d;--c1:#3d2305;--c2:#603808;--b1:#603808;--b2:#2a1804;--b3:#100800}
 :root[data-t=rouge]{--v:#ff4d5e;--lav:#ffb0b8;--pink:#ff8a3d;--c1:#3d0a14;--c2:#60101f;--b1:#60101f;--b2:#2a060d;--b3:#100205}
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scrollbar-gutter:stable}
 body{font:400 1.05rem/1.6 Outfit,system-ui,sans-serif;color:var(--txt);min-height:100vh;overflow-x:hidden;
 animation:ss 9s linear infinite;
 background:conic-gradient(from 133deg at 0 0,#0000,#fff 2deg,#0000 4deg) var(--s) calc(var(--s) - 15vh)/200px 200px no-repeat fixed,
@@ -81,7 +81,7 @@ background:conic-gradient(from var(--a),#0000 55%,var(--v),#fff 92%,#0000);
 .cell p{color:var(--mut);flex:1}
 .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
 .tags span,.chips span{padding:4px 12px;border-radius:99px;font-size:.9rem;background:color-mix(in srgb,var(--v) 18%,transparent);border:1px solid color-mix(in srgb,var(--v) 45%,transparent)}
-.cell .go{margin-top:auto;color:var(--lav);font-weight:600;align-self:flex-start}
+.cell .go{margin-top:auto;color:var(--lav);font-weight:600;align-self:flex-start;padding-top:12px}
 
 ul{list-style:none}
 .skills{max-width:640px}
@@ -191,7 +191,7 @@ html[dir=rtl] .ecard{direction:rtl}
 @media(prefers-reduced-motion:reduce){.edu{height:auto!important}.epin{position:static;height:auto;overflow:visible;padding-block:96px}.etrack{transform:none!important;overflow-x:auto;width:auto;scroll-snap-type:x mandatory;padding-bottom:16px}.ecard{scroll-snap-align:start}.eslide{display:none}}
 
 /* Intro : « Ilyes KECILI » sur une ligne, puis « Ilyes / KECILI » au centre, il rejoint sa place, la barre haut en premier, puis le reste */
-html.booting{overflow-y:scroll}
+html.booting{overflow:hidden}
 html.booting nav,html.booting section,html.booting footer,html.booting .hero p,html.booting .btns,html.booting .cell.photo{opacity:0}
 html.booting.step2 nav{opacity:1}
 nav,section,footer,.hero p,.btns{transition:opacity .35s ease}
