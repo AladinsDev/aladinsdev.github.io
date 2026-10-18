@@ -189,7 +189,21 @@ html[dir=rtl] .ecard{direction:rtl}
 .btn.off{opacity:.55;cursor:not-allowed;border-style:dashed}
 .btn.off:hover{transform:none;box-shadow:none}
 @media(prefers-reduced-motion:reduce){.edu{height:auto!important}.epin{position:static;height:auto;overflow:visible;padding-block:96px}.etrack{transform:none!important;overflow-x:auto;width:auto;scroll-snap-type:x mandatory;padding-bottom:16px}.ecard{scroll-snap-align:start}.eslide{display:none}}
+
+/* Intro : le nom apparaît au centre puis rejoint sa place */
+html.booting{overflow:hidden}
+html.booting nav,html.booting section,html.booting footer,html.booting .hero p,html.booting .btns,html.booting .cell.photo{opacity:0}
+html.booting .hero h1{opacity:0}
+nav,section,footer,.hero p,.btns{transition:opacity .35s ease}
+.cell.photo{transition:opacity .35s ease,transform .4s cubic-bezier(.18,.9,.32,1),box-shadow .3s,border-color .3s}
+.hero h1{display:inline-block}
 </style>
+<script>
+if(!matchMedia("(prefers-reduced-motion: reduce)").matches){
+  document.documentElement.classList.add("booting");
+  setTimeout(function(){document.documentElement.classList.remove("booting")},5000);
+}
+</script>
 </head>
 <body>
 
@@ -441,6 +455,41 @@ const io = new IntersectionObserver(es => es.forEach(e => {
   if (e.isIntersecting) document.documentElement.dataset.t = e.target.dataset.t;
 }), {rootMargin: "-50% 0px -50% 0px"});
 document.querySelectorAll('[data-t]:not(html)').forEach(el => io.observe(el));
+
+// Intro : nom au centre en grand, puis il rejoint sa place, puis la page apparaît
+(function(){
+  const root = document.documentElement;
+  const h1 = document.querySelector(".hero h1");
+  if(!root.classList.contains("booting") || !h1) return;
+  let done = false;
+  const finish = () => {
+    if(done) return; done = true;
+    root.classList.remove("booting");
+    h1.style.cssText = "";
+  };
+  setTimeout(finish, 4500);
+  const run = () => {
+    try{
+      history.scrollRestoration = "manual";
+      const r = h1.getBoundingClientRect();
+      if(!r.width){ finish(); return; }
+      const S = Math.min(1.8, Math.max(1.2, (root.clientWidth * .85) / r.width));
+      const dx = root.clientWidth / 2 - (r.left + r.width / 2);
+      const dy = root.clientHeight / 2 - (r.top + r.height / 2);
+      h1.style.transition = "none";
+      h1.style.transform = `translate(${dx}px,${dy}px) scale(${S})`;
+      void h1.offsetHeight;
+      setTimeout(() => { h1.style.transition = "opacity .3s ease"; h1.style.opacity = "1"; }, 250);
+      setTimeout(() => {
+        h1.style.transition = "transform .7s cubic-bezier(.18,.9,.32,1)";
+        h1.style.transform = "none";
+      }, 1250);
+      setTimeout(finish, 2050);
+    }catch(e){ finish(); }
+  };
+  const fonts = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+  Promise.race([fonts, new Promise(res => setTimeout(res, 1200))]).then(run);
+})();
 </script>
 </body>
 </html>
