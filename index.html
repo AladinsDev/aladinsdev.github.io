@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="fr" data-t="violet">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ilyes KECILI – Aladins</title>
+<meta name="description" content="Ilyes KECILI : étudiant ingénieur en électrotechnique et électronique, créateur de jeux. Projets, compétences, événements et chaîne YouTube.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;800&family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+<style>
+@property --a{syntax:"<angle>";inherits:false;initial-value:0deg}
+@property --s{syntax:"<length>";inherits:false;initial-value:0px}
+@property --v{syntax:"<color>";inherits:true;initial-value:#9b5cff}
+@property --lav{syntax:"<color>";inherits:true;initial-value:#c9a8ff}
+@property --pink{syntax:"<color>";inherits:true;initial-value:#e07bff}
+@property --c1{syntax:"<color>";inherits:true;initial-value:#1a0c45}
+@property --c2{syntax:"<color>";inherits:true;initial-value:#2a0f5e}
+@property --b1{syntax:"<color>";inherits:true;initial-value:#2a0f5e}
+@property --b2{syntax:"<color>";inherits:true;initial-value:#12082e}
+@property --b3{syntax:"<color>";inherits:true;initial-value:#06020f}
+:root{--txt:#f6f0ff;--mut:#bfb2d9;transition:--v 1s,--lav 1s,--pink 1s,--c1 1s,--c2 1s,--b1 1s,--b2 1s,--b3 1s;}
+/* Un thème de couleur par catégorie */
+:root[data-t=violet]{--v:#9b5cff;--lav:#c9a8ff;--pink:#e07bff;--c1:#1a0c45;--c2:#2a0f5e;--b1:#2a0f5e;--b2:#12082e;--b3:#06020f}
+:root[data-t=rose]{--v:#ff4fd8;--lav:#ffb3ef;--pink:#ff8a5c;--c1:#3a0a33;--c2:#5e1050;--b1:#5e1050;--b2:#2e0829;--b3:#12020f}
+:root[data-t=bleu]{--v:#2ea8ff;--lav:#a8dcff;--pink:#5ef0ff;--c1:#08224a;--c2:#0d3a6e;--b1:#0d3a6e;--b2:#071a38;--b3:#020912}
+:root[data-t=indigo]{--v:#6c7bff;--lav:#b8bfff;--pink:#8fb0ff;--c1:#101a4a;--c2:#1b2a7a;--b1:#1b2a7a;--b2:#0b1236;--b3:#03061a}
+:root[data-t=vert]{--v:#2ee59d;--lav:#a6f5d3;--pink:#b6ff5e;--c1:#06382a;--c2:#0a5a42;--b1:#0a5a42;--b2:#05261d;--b3:#010d0a}
+:root[data-t=ambre]{--v:#ffb02e;--lav:#ffdc9a;--pink:#ff7a3d;--c1:#3d2305;--c2:#603808;--b1:#603808;--b2:#2a1804;--b3:#100800}
+:root[data-t=rouge]{--v:#ff4d5e;--lav:#ffb0b8;--pink:#ff8a3d;--c1:#3d0a14;--c2:#60101f;--b1:#60101f;--b2:#2a060d;--b3:#100205}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font:400 1.05rem/1.6 Outfit,system-ui,sans-serif;color:var(--txt);min-height:100vh;overflow-x:hidden;
+animation:ss 9s linear infinite;
+background:conic-gradient(from 133deg at 0 0,#0000,#fff 2deg,#0000 4deg) var(--s) calc(var(--s) - 15vh)/200px 200px no-repeat fixed,
+radial-gradient(ellipse closest-side,color-mix(in srgb,var(--v) 30%,transparent),transparent) 8% 80%/65% 55% no-repeat fixed,
+radial-gradient(ellipse closest-side,color-mix(in srgb,var(--v) 26%,transparent),transparent) 95% 15%/55% 50% no-repeat fixed,
+radial-gradient(ellipse at 50% 30%,var(--b1),var(--b2) 45%,var(--b3)) fixed}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+background:radial-gradient(3px 3px at 15% 20%,var(--v) 50%,#0000 55%),radial-gradient(2px 2px at 40% 70%,#fffc 50%,#0000 55%),radial-gradient(3px 3px at 75% 30%,var(--lav) 50%,#0000 55%),radial-gradient(2px 2px at 60% 85%,var(--pink) 50%,#0000 55%);
+background-size:500px 500px,420px 420px,600px 600px,350px 350px;animation:tw 4s ease-in-out infinite,dr 40s linear infinite}
+body:has(.cell:hover)::before{animation-duration:.8s,6s}
+@keyframes ss{0%,70%{--s:-50vw}to{--s:120vw}}
+@keyframes ro{to{--a:360deg}}
+@keyframes tw{0%,100%{opacity:.4}50%{opacity:1}}
+@keyframes dr{to{background-position:500px 500px,-420px 420px,0 -600px,700px 0}}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--lav);outline-offset:3px;border-radius:6px}
+h1,h2,h3{font-family:Unbounded,system-ui,sans-serif;line-height:1.15}
+h2{font-weight:500;font-size:clamp(1.4rem,3vw,2rem);margin-bottom:28px}
+
+nav{position:sticky;top:0;z-index:10;display:flex;gap:6px 22px;flex-wrap:wrap;justify-content:flex-end;padding:14px max(20px,calc(50vw - 540px));background:#06020fcc;backdrop-filter:blur(10px);border-bottom:1px solid color-mix(in srgb,var(--v) 20%,transparent)}
+nav b{margin-inline-end:auto;font:800 1rem Unbounded,sans-serif;color:var(--lav)}
+nav a{text-decoration:none;color:var(--mut);transition:color .2s}
+nav a:hover{color:var(--lav)}
+
+.hero{min-height:72vh;display:flex;align-items:center;padding:60px max(20px,calc(50vw - 540px))}
+.hero h1{font-weight:800;font-size:clamp(2.8rem,10vw,6.5rem);letter-spacing:-.03em;text-shadow:0 0 50px color-mix(in srgb,var(--v) 70%,transparent)}
+.hero p{margin:18px 0 30px;font-size:1.3rem;color:var(--lav);max-width:42ch}
+.btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn{display:inline-block;padding:12px 22px;border-radius:10px;font-weight:600;text-decoration:none;border:1px solid var(--v);transition:transform .2s,box-shadow .2s}
+.btn.main{background:var(--v);color:#0a0414;box-shadow:0 0 22px color-mix(in srgb,var(--v) 45%,transparent)}
+.btn:hover{transform:translateY(-3px);box-shadow:0 0 28px var(--v)}
+
+section{padding:clamp(88px,13vw,140px) max(20px,calc(50vw - 540px))}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;perspective:1000px}
+
+.cell{position:relative;overflow:hidden;padding:24px;border:1px solid color-mix(in srgb,var(--v) 30%,transparent);border-radius:14px;background:linear-gradient(145deg,var(--c1),var(--c2));box-shadow:0 10px 25px #000a;transition:transform .4s cubic-bezier(.18,.9,.32,1),box-shadow .3s,border-color .3s}
+.cell::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;pointer-events:none;animation:ro 4s linear infinite;
+background:conic-gradient(from var(--a),#0000 55%,var(--v),#fff 92%,#0000);
+-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude}
+.cell::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(110deg,#0000 35%,#fff5 50%,#0000 65%);transform:translateX(-100%)}
+.cell:hover::after{transform:translateX(100%);transition:transform .7s}
+.cell:hover{border-color:var(--v);transform:rotateX(8deg) rotateY(-8deg) translateY(-6px);box-shadow:0 15px 30px #000c,0 0 24px color-mix(in srgb,var(--v) 60%,transparent)}
+.cell h3{font-size:1.1rem;font-weight:500;margin-bottom:8px}
+.cell p{color:var(--mut)}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.tags span,.chips span{padding:4px 12px;border-radius:99px;font-size:.9rem;background:color-mix(in srgb,var(--v) 18%,transparent);border:1px solid color-mix(in srgb,var(--v) 45%,transparent)}
+.cell .go{display:inline-block;margin-top:16px;color:var(--lav);font-weight:600}
+
+ul{list-style:none}
+.skills{max-width:640px}
+.skills li{margin-bottom:18px}
+.row{display:flex;justify-content:space-between;margin-bottom:6px}
+.row span:last-child{color:var(--mut)}
+.bar{height:8px;border-radius:99px;background:#ffffff14;overflow:hidden}
+.bar i{display:block;height:100%;width:var(--w);border-radius:inherit;background:linear-gradient(90deg,var(--v),var(--pink));box-shadow:0 0 12px var(--v)}
+.lang{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid color-mix(in srgb,var(--v) 25%,transparent)}
+.lang small{color:var(--mut);font-size:.95rem}
+.lang .stars{flex:none;margin-inline-start:16px}
+.stars{display:flex;gap:4px;filter:drop-shadow(0 0 5px var(--pink))}
+.stars i{width:18px;height:18px;background:#ffffff26;clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
+.stars i.on{background:var(--pink)}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+
+.tl{border-inline-start:2px solid color-mix(in srgb,var(--v) 40%,transparent);margin-inline-start:8px}
+.tl li{position:relative;padding:0 0 28px;padding-inline-start:28px}
+.tl li::before{content:"";position:absolute;inset-inline-start:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:#000;box-shadow:0 0 0 2px var(--lav),0 0 14px var(--v)}
+.tl time{color:var(--lav);font-weight:600}
+.tl h3{font-size:1.05rem;font-weight:500;margin:2px 0}
+.tl p{color:var(--mut)}
+
+.yt{display:flex;align-items:center;gap:28px;flex-wrap:wrap}
+.play{flex:none;width:84px;height:84px;border-radius:50%;background:#000;box-shadow:0 0 0 2px var(--lav),0 0 30px var(--v);display:grid;place-items:center}
+.play::after{content:"";width:26px;height:30px;margin-inline-start:6px;background:var(--lav);clip-path:polygon(0 0,100% 50%,0 100%)}
+.yt h3{font-size:1.3rem}
+.yt .btn{margin-top:16px}
+
+footer{padding:40px max(20px,calc(50vw - 540px)) 60px;color:var(--mut);display:flex;gap:12px 28px;flex-wrap:wrap;align-items:center}
+footer a{color:var(--lav)}
+@media(max-width:760px){.two{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*,::before,::after{animation:none!important;transition:none!important}}
+.hero p.age{margin:6px 0 0;font-size:1.1rem;color:var(--mut)}
+.sw{background:#0a0414;color:var(--txt);border:1px solid var(--v);border-radius:8px;padding:4px 8px;font:inherit;font-size:.95rem}
+#links{display:flex;gap:6px 22px;flex-wrap:wrap}
+button.cp{all:unset;cursor:pointer;color:var(--lav)}
+button.cp:hover{text-decoration:underline}
+button.cp:focus-visible{outline:2px solid var(--lav);outline-offset:3px}
+.grp{margin-top:48px}
+.grp h3{font-size:1.05rem;font-weight:500;color:var(--lav);margin-bottom:14px}
+/* Scrollbar personnalisée, aux couleurs de la catégorie en cours */
+::-webkit-scrollbar{width:14px;height:14px}
+::-webkit-scrollbar-track{background:#06020f;border-inline-start:1px solid color-mix(in srgb,var(--v) 25%,transparent)}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--v),var(--pink));border:3px solid #06020f;border-radius:99px;box-shadow:0 0 12px var(--v)}
+::-webkit-scrollbar-thumb:hover{background:var(--lav)}
+@supports not selector(::-webkit-scrollbar){html{scrollbar-width:thin;scrollbar-color:var(--v) #06020f}}
+.ic{width:1.15em;height:1.15em;fill:currentColor;vertical-align:-.2em;margin-inline-end:.5em}
+button.btn{font:inherit;font-weight:600;color:inherit;background:transparent;cursor:pointer}
+.tl h3 a{text-decoration:none;border-bottom:1px solid var(--v)}
+.tl .win{color:var(--pink);font-weight:600}
+.tl .cert{display:inline-block;margin-top:6px;color:var(--lav);font-weight:600}
+.tl p a{color:var(--lav)}
+/* Séparation marquée entre les catégories : couleur propre, filet lumineux, halo et titre souligné */
+section[data-t=rose]{--sec:#ff4fd8}
+section[data-t=bleu]{--sec:#2ea8ff}
+section[data-t=vert]{--sec:#2ee59d}
+section[data-t=ambre]{--sec:#ffb02e}
+section[data-t=rouge]{--sec:#ff4d5e}
+footer[data-t=violet]{--sec:#9b5cff}
+section,footer{position:relative}
+section{background:linear-gradient(180deg,color-mix(in srgb,var(--sec) 10%,transparent),transparent 260px)}
+section::before,footer::before{content:"";position:absolute;top:0;inset-inline:max(20px,calc(50vw - 540px));height:2px;background:linear-gradient(90deg,transparent,var(--sec),transparent);box-shadow:0 0 20px var(--sec)}
+section h2::after{content:"";display:block;width:56px;height:4px;margin-top:12px;border-radius:99px;background:var(--sec);box-shadow:0 0 14px var(--sec)}
+footer{margin-top:20px}
+.btns.socials{margin-top:26px;padding-top:26px;border-top:1px solid color-mix(in srgb,var(--v) 28%,transparent)}
+.btns.socials{flex-wrap:nowrap;gap:10px}
+.btns.socials .btn{flex:none;padding:10px 14px;font-size:.95rem;white-space:nowrap}
+@media(max-width:760px){.btns.socials{overflow-x:auto;padding-top:32px;padding-bottom:10px}}
+/* Photo + section Formation (défilement horizontal piloté par le scroll) */
+.hero{gap:48px;justify-content:space-between;flex-wrap:wrap}
+.hero>div:first-child{flex:1 1 520px;min-width:0}
+.photo{flex:none;width:clamp(200px,26vw,300px);aspect-ratio:4/5;padding:0;display:grid;place-items:center;border-radius:24px}
+.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.photo svg{width:46%;fill:var(--lav);opacity:.35}
+.btns.socials{overflow-x:auto;padding-bottom:14px}
+section[data-t=indigo]{--sec:#6c7bff}
+.edu{padding:0}
+.epin{position:sticky;top:0;height:100vh;height:100dvh;display:flex;flex-direction:column;justify-content:center;gap:28px;overflow:hidden;padding:0 max(20px,calc(50vw - 540px))}
+.epin h2{margin-bottom:0}
+.etrack{display:flex;gap:24px;width:max-content;direction:ltr;perspective:1000px;will-change:transform}
+.ecard{flex:none;width:min(320px,78vw);display:flex;flex-direction:column;gap:14px}
+html[dir=rtl] .ecard{direction:rtl}
+.ecard h3{margin:0}
+.eimg{aspect-ratio:4/3;display:grid;place-items:center;text-align:center;border:2px dashed color-mix(in srgb,var(--v) 45%,transparent);border-radius:10px;color:var(--mut);font-size:.9rem;overflow:hidden}
+.eimg img{width:100%;height:100%;object-fit:cover;display:block}
+.egr{display:flex;justify-content:space-between;padding-top:12px;border-top:1px solid color-mix(in srgb,var(--v) 25%,transparent)}
+.egr b{color:var(--lav)}
+.egl{display:flex;justify-content:space-between;color:var(--mut);font-size:.95rem}
+.badge{align-self:flex-start;padding:2px 10px;border-radius:99px;font-size:.8rem;font-weight:600;background:var(--v);color:#0a0414}
+.eslide{-webkit-appearance:none;appearance:none;width:100%;height:24px;margin:0;background:transparent;cursor:grab}
+.eslide:active{cursor:grabbing}
+.eslide::-webkit-slider-runnable-track{height:6px;border-radius:99px;background:#ffffff26}
+.eslide::-webkit-slider-thumb{-webkit-appearance:none;width:56px;height:18px;margin-top:-6px;border:0;border-radius:99px;background:linear-gradient(90deg,var(--v),var(--pink));box-shadow:0 0 14px var(--v)}
+.eslide::-moz-range-track{height:6px;border-radius:99px;background:#ffffff26}
+.eslide::-moz-range-thumb{width:56px;height:18px;border:0;border-radius:99px;background:linear-gradient(90deg,var(--v),var(--pink));box-shadow:0 0 14px var(--v)}
+.epin{touch-action:pan-y pinch-zoom}
+.ecard.wide{width:min(660px,92vw)}
+.edocs{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:16px}
+.edoc{display:flex;flex-direction:column;gap:10px}
+.edoc>b{font-weight:600;color:var(--lav)}
+.epdf{display:block;text-align:center;font-size:.9rem;padding:8px 12px}
+.btn.off{opacity:.55;cursor:not-allowed;border-style:dashed}
+.btn.off:hover{transform:none;box-shadow:none}
+@media(prefers-reduced-motion:reduce){.edu{height:auto!important}.epin{position:static;height:auto;overflow:visible;padding-block:96px}.etrack{transform:none!important;overflow-x:auto;width:auto;scroll-snap-type:x mandatory;padding-bottom:16px}.ecard{scroll-snap-align:start}.eslide{display:none}}
+</style>
+</head>
+<body>
+
+<nav aria-label="Navigation">
+  <b>Ilyes</b>
+  <a href="#projets" data-i="0"></a><a href="#competences" data-i="1"></a><a href="#langues" data-i="2"></a><a href="#formation" data-i="53"></a><a href="#evenements" data-i="3"></a><a href="#youtube">YouTube</a><a href="#contact" data-i="4"></a>
+  <select class="sw" id="sw" aria-label="Language"></select>
+</nav>
+
+<header class="hero" data-t="violet">
+  <div>
+    <h1>Ilyes KECILI</h1>
+    <p class="age" id="age"></p>
+    <p data-i="8"></p>
+    <div class="btns">
+      <a class="btn main" href="#projets" data-i="5"></a>
+    </div>
+    <div class="btns socials">
+      <a class="btn" id="hy" href="#">YouTube</a>
+      <a class="btn" id="hi" href="#">itch.io</a>
+      <a class="btn" id="hs" href="#"></a>
+      <button class="btn" id="hd" type="button"></button>
+      <button class="btn" id="hm" type="button"></button>
+      <a class="btn" id="hg" href="#"></a>
+    </div>
+  </div>
+  <div class="cell photo" id="photo"></div>
+</header>
+
+<section id="projets" data-t="rose">
+  <h2 data-i="6"></h2>
+  <div class="grid" id="projects"></div>
+</section>
+
+<section id="competences" data-t="bleu">
+  <h2 data-i="1"></h2>
+  <ul class="skills" id="skills"></ul>
+  <div class="two grp" id="groups"></div>
+</section>
+
+<section id="langues" data-t="vert">
+  <h2 data-i="7"></h2>
+  <div class="two">
+    <ul id="langs"></ul>
+    <div class="chips" id="passions"></div>
+  </div>
+</section>
+
+<section id="formation" class="edu" data-t="indigo">
+  <div class="epin">
+    <h2 data-i="53"></h2>
+    <div class="etrack" id="etrack"></div>
+    <input class="eslide" id="eslide" type="range" min="0" max="1000" value="0">
+  </div>
+</section>
+
+<section id="evenements" data-t="ambre">
+  <h2 data-i="3"></h2>
+  <ul class="tl" id="events"></ul>
+</section>
+
+<section id="youtube" data-t="rouge">
+  <div class="cell yt">
+    <div class="play" aria-hidden="true"></div>
+    <div id="ytbox"></div>
+  </div>
+</section>
+
+<footer id="contact" data-t="violet">
+  <span data-i="24"></span>
+  <span id="links"></span>
+</footer>
+
+<script>
+// ✏️ Données du site (les textes traduits sont dans L, plus bas)
+const D = {
+  born: [2007, 4, 8], // année, mois (0 = janvier), jour : seul l’âge est affiché
+  github: "https://github.com/AladinsDev",
+  itch: "https://aladins.itch.io/",
+  steam: "https://steamcommunity.com/id/xAladins/",
+  youtube: "https://www.youtube.com/@AladinsDev",
+  photo: "", // photo professionnelle : dépose le fichier à côté d’index.html et écris son nom, ex. "photo.jpg"
+  insta: "https://www.instagram.com/xaladins/",
+  email: "ilyes.kecili@hotmail.com",
+  discord: "aladins",
+  projects: [
+    {t:"Beneath", k:43, tags:["Puzzle","3D"], u:"https://aladins.itch.io/beneath", l:"itch.io"},
+    {t:"Pack’In", k:44, tags:["3D",45]},
+    {t:"Himaya", k:12, tags:["Hackathon","AI"], u:"https://github.com/AladinsDev/himaya"}
+  ],
+  // nombre = texte traduit (index dans L), texte = tel quel
+  skills: [["Playtester",90],["Godot 4 / GDScript",85],[46,70],[13,70],[14,60],["Shaders",55]],
+  langs: [[15,5],[16,4],[17,3],[18,4]],
+  // Études, dans l’ordre du défilement. Chaque document (notes, diplôme) accepte :
+  //   img: "notes-bac.jpg"  (image, à déposer à côté d’index.html)
+  //   pdf: "notes-bac.pdf"  (lien du PDF)
+  // Chaque étape accepte aussi avg: "15,2/20" (moyenne) et g: [["Maths","16/20"],["Physique","14/20"]]
+  edu: [
+    {t:54, docs:[{k:57}, {k:60}]},
+    {t:55, n:1, docs:[{k:57}]},
+    {t:55, n:2, cur:1, docs:[{k:57}]},
+    {t:55, n:3, docs:[{k:57}]},
+    {t:55, n:4, docs:[{k:57}]},
+    {t:55, n:5, docs:[{k:57}]},
+    {t:56, docs:[{k:60}]}
+  ],
+  passions: [19,41,40,39,38,47,"Hackathons",20]
+};
+
+// Ordre : 0-4 menu · 5 bouton · 6-7 titres · 8 accroche · 9 âge · 10-12 projets · 13-14 compétences
+// 15-18 langues · 19-20 passions · 21-23 YouTube · 24 pied de page · 25-32 groupes de compétences · 33-37 événements (certificat, équipe, projet) · 38-41 passions (piano, psycho, physique, jeux vidéo) · 42 gestion d’équipes · 43-45 projets (Beneath, Pack’In, tag horreur) · 46 algorithmique · 47 musculation · 48-52 langues · 53-63 études (titre, bac, années, diplôme, notes, PDF, moyenne)
+const N = {fr:"Français",en:"English",ar:"العربية",de:"Deutsch",ja:"日本語",zh:"中文",it:"Italiano",es:"Español",ru:"Русский"};
+const L = {
+fr:["Projets", "Compétences", "Langues", "Événements", "Contact", "Voir mes projets", "Jeux et projets", "Langues et passions", "Étudiant en 2e année d’ingénieur en électrotechnique et électronique. Je crée aussi des jeux sur mon temps libre.", "{n} ans", "Serveur multijoueur avec 4 équipes et des mécaniques personnalisées.", "Un jeu en développement : shaders et intégration Steam.", "Outil de cartographie d’incidents : saisie, IA, carte et tableau de bord.", "Automatisation et scripts", "Game design", "Français", "Anglais", "Arabe", "Kabyle", "Développement de jeux", "Automatisation", "Ma chaîne YouTube", "Making-of de mes jeux, life stories et gaming.", "Voir la chaîne", "Me retrouver :", "Technique et développement", "Projet et organisation", "Développement web et applications", "Résolution de problèmes et algorithmique", "Code propre, modulaire et documenté", "Autonomie et conception de projet", "Esprit d’analyse", "Veille et apprentissage rapide", "1re édition de la game jam de 7 jours organisée par Numidia Computer Society (Algérie).", "1er prix", "Voir le certificat", "Équipe", "Projet", "Piano", "Psychologie", "Physique", "Jeux vidéo", "Gestion d’équipes", "Jeu de réflexion et d’horreur psychologique en 3D, créé en 7 jours pendant la Jammy Jam. Il faut passer d’un monde à l’autre pour résoudre les énigmes.", "Jeu d’horreur en développement, sortie prévue en 2027.", "Horreur", "Algorithmique", "Musculation", "Russe", "maternelle, courante", "avancé", "avancé", "intermédiaire", "Études", "Baccalauréat", "Ingénieur, année {n}", "Diplôme d’ingénieur", "Notes", "Image à venir", "En cours", "Diplôme", "Voir le PDF", "PDF à venir", "Moyenne"],
+en:["Projects", "Skills", "Languages", "Events", "Contact", "See my projects", "Games and projects", "Languages and interests", "Second-year engineering student in electrical engineering and electronics. I also create games in my spare time.", "{n} years old", "Multiplayer server with 4 teams and custom mechanics.", "A game in development: shaders and Steam integration.", "Incident mapping tool: intake, AI, map and dashboard.", "Automation and scripting", "Game design", "French", "English", "Arabic", "Kabyle", "Game development", "Automation", "My YouTube channel", "Making-of videos of my games, life stories and gaming.", "Watch the channel", "Find me on:", "Technical and development", "Project and organization", "Web and application development", "Problem solving and algorithms", "Clean, modular, documented code", "Autonomy and project design", "Analytical mindset", "Staying current and learning fast", "1st edition of the 7-day game jam organized by Numidia Computer Society (Algeria).", "1st place", "View the certificate", "Team", "Project", "Piano", "Psychology", "Physics", "Video games", "Team management", "3D puzzle and psychological horror game made in 7 days during the Jammy Jam. Switch between two worlds to solve the puzzles.", "Horror game in development, release planned for 2027.", "Horror", "Algorithms", "Strength training", "Russian", "native, fluent", "advanced", "advanced", "intermediate", "Studies", "Baccalauréat", "Engineering, year {n}", "Engineering degree", "Grades", "Image coming soon", "In progress", "Diploma", "View the PDF", "PDF coming soon", "Average"],
+ar:["المشاريع", "المهارات", "اللغات", "الفعاليات", "التواصل", "شاهد مشاريعي", "ألعاب ومشاريع", "اللغات والاهتمامات", "طالب هندسة في السنة الثانية، تخصص الكهروتقنية والإلكترونيك. أصمم الألعاب أيضًا في أوقات فراغي.", "{n} سنة", "خادم متعدد اللاعبين بأربعة فرق وآليات مخصصة.", "لعبة قيد التطوير: شيدرز وتكامل مع Steam.", "أداة لرسم خريطة الحوادث: إدخال وذكاء اصطناعي وخريطة ولوحة تحكم.", "الأتمتة والسكربتات", "تصميم الألعاب", "الفرنسية", "الإنجليزية", "العربية", "القبائلية", "تطوير الألعاب", "الأتمتة", "قناتي على يوتيوب", "كواليس صناعة ألعابي، وقصص من حياتي، ومحتوى جيمينغ.", "شاهد القناة", "تجدني على:", "المهارات التقنية والتطوير", "المشاريع والتنظيم", "تطوير الويب والتطبيقات", "حل المشكلات والخوارزميات", "كود نظيف ومنظم وموثق", "الاستقلالية وتصميم المشاريع", "عقلية تحليلية", "مواكبة الجديد وسرعة التعلم", "النسخة الأولى من مسابقة تطوير الألعاب لمدة 7 أيام التي تنظمها Numidia Computer Society (الجزائر).", "المركز الأول", "عرض الشهادة", "الفريق", "المشروع", "البيانو", "علم النفس", "الفيزياء", "ألعاب الفيديو", "إدارة الفرق", "لعبة ألغاز ورعب نفسي ثلاثية الأبعاد صُنعت في 7 أيام خلال Jammy Jam. بدّل بين عالمين لحل الألغاز.", "لعبة رعب قيد التطوير، موعد الإصدار المتوقع 2027.", "رعب", "الخوارزميات", "تمارين القوة", "الروسية", "لغة أم، بطلاقة", "متقدم", "متقدم", "متوسط", "الدراسة", "البكالوريا", "هندسة، السنة {n}", "شهادة مهندس", "العلامات", "الصورة قريبًا", "قيد الدراسة", "الشهادة", "عرض ملف PDF", "ملف PDF قريبًا", "المعدل"],
+de:["Projekte", "Fähigkeiten", "Sprachen", "Events", "Kontakt", "Meine Projekte ansehen", "Spiele und Projekte", "Sprachen und Interessen", "Ingenieurstudent im 2. Jahr in Elektrotechnik und Elektronik. In meiner Freizeit entwickle ich außerdem Spiele.", "{n} Jahre", "Mehrspieler-Server mit 4 Teams und eigenen Mechaniken.", "Ein Spiel in Entwicklung: Shader und Steam-Anbindung.", "Tool zur Kartierung von Vorfällen: Erfassung, KI, Karte und Dashboard.", "Automatisierung und Skripte", "Game Design", "Französisch", "Englisch", "Arabisch", "Kabylisch", "Spieleentwicklung", "Automatisierung", "Mein YouTube-Kanal", "Making-of meiner Spiele, Life Stories und Gaming.", "Kanal ansehen", "Hier findest du mich:", "Technik und Entwicklung", "Projekt und Organisation", "Web- und Anwendungsentwicklung", "Problemlösung und Algorithmik", "Sauberer, modularer, dokumentierter Code", "Selbstständigkeit und Projektkonzeption", "Analytisches Denken", "Auf dem Laufenden bleiben und schnell lernen", "1. Ausgabe der 7-tägigen Game Jam der Numidia Computer Society (Algerien).", "1. Platz", "Zertifikat ansehen", "Team", "Projekt", "Klavier", "Psychologie", "Physik", "Videospiele", "Teamführung", "3D-Puzzle- und Psycho-Horrorspiel, in 7 Tagen während der Jammy Jam entstanden. Wechsle zwischen zwei Welten, um die Rätsel zu lösen.", "Horrorspiel in Entwicklung, Veröffentlichung für 2027 geplant.", "Horror", "Algorithmik", "Krafttraining", "Russisch", "Muttersprache, fließend", "fortgeschritten", "fortgeschritten", "mittel", "Studium", "Baccalauréat (Abitur)", "Ingenieurstudium, Jahr {n}", "Ingenieurdiplom", "Noten", "Bild folgt", "Aktuell", "Diplom", "PDF ansehen", "PDF folgt", "Durchschnitt"],
+ja:["プロジェクト", "スキル", "言語", "イベント", "連絡先", "プロジェクトを見る", "ゲームとプロジェクト", "言語と興味", "電気工学・電子工学を専攻する工学部2年生。余暇にはゲームも制作しています。", "{n}歳", "4チーム制とオリジナルの仕組みを備えたマルチプレイサーバー。", "開発中のゲーム：シェーダーとSteam連携。", "インシデント可視化ツール：入力、AI、地図、ダッシュボード。", "自動化とスクリプト", "ゲームデザイン", "フランス語", "英語", "アラビア語", "カビル語", "ゲーム開発", "自動化", "YouTubeチャンネル", "自作ゲームのメイキング、ライフストーリー、ゲーム動画。", "チャンネルを見る", "リンク：", "技術と開発", "プロジェクトと組織力", "Webとアプリの開発", "問題解決とアルゴリズム", "クリーンでモジュール化された文書化済みコード", "自律性とプロジェクト設計", "分析的思考", "最新動向の把握と素早い学習", "Numidia Computer Society（アルジェリア）主催、7日間のゲームジャム第1回。", "1位", "賞状を見る", "チーム", "プロジェクト", "ピアノ", "心理学", "物理学", "ビデオゲーム", "チームマネジメント", "Jammy Jamの7日間で制作した3Dのパズル・心理ホラーゲーム。2つの世界を切り替えて謎を解きます。", "開発中のホラーゲーム。2027年発売予定。", "ホラー", "アルゴリズム", "筋力トレーニング", "ロシア語", "母語・流暢", "上級", "上級", "中級", "学業", "バカロレア", "工学部 {n}年目", "工学の学位", "成績", "画像は準備中", "在学中", "卒業証書", "PDFを見る", "PDFは準備中", "平均"],
+zh:["项目", "技能", "语言", "活动", "联系", "查看我的项目", "游戏与项目", "语言与兴趣", "电气工程与电子专业的工程专业二年级学生，业余时间也制作游戏。", "{n}岁", "拥有 4 支队伍和自定义机制的多人服务器。", "开发中的游戏：着色器与 Steam 集成。", "事件地图工具：录入、AI、地图和仪表盘。", "自动化与脚本", "游戏设计", "法语", "英语", "阿拉伯语", "卡拜尔语", "游戏开发", "自动化", "我的 YouTube 频道", "我的游戏制作幕后、生活故事和游戏内容。", "观看频道", "找到我：", "技术与开发", "项目与组织", "网页与应用开发", "问题解决与算法", "整洁、模块化、有文档的代码", "自主性与项目设计", "分析思维", "持续关注新技术、学习迅速", "由 Numidia Computer Society（阿尔及利亚）举办的首届 7 天游戏开发赛。", "第一名", "查看证书", "团队", "项目", "钢琴", "心理学", "物理", "电子游戏", "团队管理", "在 Jammy Jam 的 7 天内制作的 3D 解谜心理恐怖游戏。通过切换两个世界来解开谜题。", "开发中的恐怖游戏，计划于 2027 年发布。", "恐怖", "算法", "健身", "俄语", "母语，流利", "高级", "高级", "中级", "学业", "高中会考（Baccalauréat）", "工程专业 第{n}年", "工程师学位", "成绩", "图片即将上线", "进行中", "毕业证书", "查看 PDF", "PDF 即将上线", "平均分"],
+it:["Progetti", "Competenze", "Lingue", "Eventi", "Contatti", "Vedi i miei progetti", "Giochi e progetti", "Lingue e interessi", "Studente di ingegneria elettrotecnica ed elettronica al secondo anno. Nel tempo libero creo anche giochi.", "{n} anni", "Server multiplayer con 4 squadre e meccaniche personalizzate.", "Un gioco in sviluppo: shader e integrazione con Steam.", "Strumento di mappatura degli incidenti: raccolta, IA, mappa e dashboard.", "Automazione e script", "Game design", "Francese", "Inglese", "Arabo", "Cabilo", "Sviluppo di giochi", "Automazione", "Il mio canale YouTube", "Making-of dei miei giochi, life stories e gaming.", "Guarda il canale", "Trovami su:", "Tecnica e sviluppo", "Progetto e organizzazione", "Sviluppo web e di applicazioni", "Problem solving e algoritmi", "Codice pulito, modulare e documentato", "Autonomia e progettazione di progetti", "Spirito di analisi", "Aggiornamento continuo e apprendimento rapido", "1ª edizione della game jam di 7 giorni organizzata dalla Numidia Computer Society (Algeria).", "1° posto", "Vedi il certificato", "Squadra", "Progetto", "Pianoforte", "Psicologia", "Fisica", "Videogiochi", "Gestione del team", "Gioco 3D di enigmi e horror psicologico creato in 7 giorni durante la Jammy Jam. Passa da un mondo all’altro per risolvere i puzzle.", "Gioco horror in sviluppo, uscita prevista nel 2027.", "Horror", "Algoritmi", "Allenamento con i pesi", "Russo", "madrelingua, fluente", "avanzato", "avanzato", "intermedio", "Studi", "Baccalauréat (maturità)", "Ingegneria, anno {n}", "Laurea in ingegneria", "Voti", "Immagine in arrivo", "In corso", "Diploma", "Vedi il PDF", "PDF in arrivo", "Media"],
+es:["Proyectos", "Habilidades", "Idiomas", "Eventos", "Contacto", "Ver mis proyectos", "Juegos y proyectos", "Idiomas e intereses", "Estudiante de segundo año de ingeniería en electrotecnia y electrónica. En mi tiempo libre también creo juegos.", "{n} años", "Servidor multijugador con 4 equipos y mecánicas personalizadas.", "Un juego en desarrollo: shaders e integración con Steam.", "Herramienta de mapeo de incidentes: entrada, IA, mapa y panel de control.", "Automatización y scripts", "Diseño de juegos", "Francés", "Inglés", "Árabe", "Cabilio", "Desarrollo de juegos", "Automatización", "Mi canal de YouTube", "Making-of de mis juegos, life stories y gaming.", "Ver el canal", "Encuéntrame en:", "Técnica y desarrollo", "Proyecto y organización", "Desarrollo web y de aplicaciones", "Resolución de problemas y algoritmia", "Código limpio, modular y documentado", "Autonomía y diseño de proyectos", "Mentalidad analítica", "Actualización constante y aprendizaje rápido", "1.ª edición de la game jam de 7 días organizada por la Numidia Computer Society (Argelia).", "1.er puesto", "Ver el certificado", "Equipo", "Proyecto", "Piano", "Psicología", "Física", "Videojuegos", "Gestión de equipos", "Juego 3D de puzles y terror psicológico creado en 7 días durante la Jammy Jam. Cambia entre dos mundos para resolver los puzles.", "Juego de terror en desarrollo, lanzamiento previsto en 2027.", "Terror", "Algoritmia", "Musculación", "Ruso", "materna, fluido", "avanzado", "avanzado", "intermedio", "Estudios", "Baccalauréat (bachillerato)", "Ingeniería, año {n}", "Título de ingeniero", "Notas", "Imagen próximamente", "En curso", "Diploma", "Ver el PDF", "PDF próximamente", "Promedio"],
+ru:["Проекты", "Навыки", "Языки", "События", "Контакты", "Смотреть мои проекты", "Игры и проекты", "Языки и увлечения", "Студент 2-го курса инженерного направления: электротехника и электроника. В свободное время также создаю игры.", "{n} лет", "Многопользовательский сервер на 4 команды с собственными механиками.", "Игра в разработке: шейдеры и интеграция со Steam.", "Инструмент для картографирования происшествий: ввод данных, ИИ, карта и панель управления.", "Автоматизация и скрипты", "Геймдизайн", "Французский", "Английский", "Арабский", "Кабильский", "Разработка игр", "Автоматизация", "Мой канал на YouTube", "Закулисье создания моих игр, истории из жизни и гейминг.", "Смотреть канал", "Где меня найти:", "Технические навыки и разработка", "Проекты и организация", "Веб-разработка и разработка приложений", "Решение проблем и алгоритмика", "Чистый, модульный и документированный код", "Самостоятельность и разработка концепции проекта", "Аналитическое мышление", "Следить за новинками и быстро учиться", "Первое издание 7-дневного геймджема, организованного Numidia Computer Society (Алжир).", "1-е место", "Посмотреть сертификат", "Команда", "Проект", "Фортепиано", "Психология", "Физика", "Видеоигры", "Управление командой", "3D-головоломка и психологический хоррор, созданный за 7 дней во время Jammy Jam. Переключайтесь между двумя мирами, чтобы решать загадки.", "Хоррор-игра в разработке, релиз запланирован на 2027 год.", "Хоррор", "Алгоритмы", "Силовые тренировки", "Русский", "родной, свободно", "продвинутый", "продвинутый", "средний", "Учёба", "Baccalauréat (аттестат)", "Инженерия, курс {n}", "Диплом инженера", "Оценки", "Изображение скоро появится", "Сейчас", "Диплом", "Открыть PDF", "PDF скоро появится", "Средний балл"]
+};
+
+const $ = s => document.querySelector(s);
+const age = () => { const n = new Date(), [y,m,d] = D.born; let a = n.getFullYear() - y; if (n < new Date(n.getFullYear(), m, d)) a--; return a; };
+const IC = {
+  yt: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.500 0 9.400-.5a3 3 0 0 0 2.100-2.100C24 15.900 24 12 24 12s0-3.900-.5-5.800zM9.500 15.600V8.400l6.300 3.600-6.300 3.600z"/></svg>',
+  steam: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 11.999-5.373 11.999-12S18.605 0 11.979 0zM7.54 18.21l-1.473-.61c.262.543.714.999 1.314 1.25 1.297.539 2.793-.076 3.332-1.375.263-.63.264-1.319.005-1.949s-.75-1.121-1.377-1.383c-.624-.26-1.29-.249-1.878-.03l1.523.63c.956.4 1.409 1.5 1.009 2.455-.397.957-1.497 1.41-2.454 1.012H7.54zm11.415-9.303c0-1.662-1.353-3.015-3.015-3.015-1.665 0-3.015 1.353-3.015 3.015 0 1.665 1.35 3.015 3.015 3.015 1.663 0 3.015-1.35 3.015-3.015zm-5.273-.005c0-1.252 1.013-2.266 2.265-2.266 1.249 0 2.266 1.014 2.266 2.266 0 1.251-1.017 2.265-2.266 2.265-1.253 0-2.265-1.014-2.265-2.265z"/></svg>',
+  gh: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 .3a12 12 0 0 0-3.800 23.400c.6.100.8-.300.800-.600v-2c-3.300.700-4-1.600-4-1.600-.500-1.400-1.300-1.800-1.300-1.800-1.100-.700.100-.700.100-.700 1.200.100 1.800 1.200 1.800 1.200 1.100 1.800 2.800 1.300 3.500 1 .100-.800.400-1.300.800-1.600-2.700-.300-5.500-1.300-5.500-5.900 0-1.300.500-2.400 1.200-3.200-.100-.400-.500-1.600.100-3.200 0 0 1-.300 3.300 1.200a11.500 11.500 0 0 1 6 0c2.300-1.500 3.300-1.200 3.300-1.200.700 1.600.200 2.800.100 3.200.800.800 1.200 1.900 1.200 3.200 0 4.600-2.800 5.600-5.500 5.900.400.400.800 1.100.800 2.200v3.300c0 .300.200.700.800.600A12 12 0 0 0 12 .3"/></svg>',
+  ig: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm5 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm5.300-3.600a1.200 1.200 0 1 1 0 2.400 1.200 1.200 0 0 1 0-2.400z"/></svg>',
+  mail: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>',
+  dc: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>',
+  itch: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.500 2h15L23 7.500a3.200 3.200 0 0 1-6 1.300 3.200 3.200 0 0 1-5 0 3.200 3.200 0 0 1-5 0A3.200 3.200 0 0 1 1 7.500z"/><path d="M3.500 11.500a4.700 4.700 0 0 0 3.500-1 4.700 4.700 0 0 0 5 0 4.700 4.700 0 0 0 5 0 4.700 4.700 0 0 0 3.500 1V22h-17zm5 3.500v4h7v-4z" fill-rule="evenodd"/></svg>'
+};
+$('#hy').href = D.youtube; $('#hy').innerHTML = IC.yt + 'YouTube';
+$('#hi').href = D.itch; $('#hi').innerHTML = IC.itch + 'itch.io';
+$('#hs').href = D.steam; $('#hs').innerHTML = IC.steam + 'Steam';
+$('#hm').dataset.c = D.email; $('#hm').innerHTML = IC.mail + 'Email';
+$('#hg').href = D.insta; $('#hg').innerHTML = IC.ig + 'Instagram';
+$('#hd').dataset.c = D.discord; $('#hd').innerHTML = IC.dc + 'Discord';
+
+const sec = $("#formation"), pin = sec.querySelector(".epin"), trk = $("#etrack"), slide = $("#eslide");
+const RM = matchMedia("(prefers-reduced-motion: reduce)");
+let span = 0;
+function layoutEdu() {
+  if (RM.matches) { sec.style.height = ""; trk.style.transform = ""; return; }
+  const pad = parseFloat(getComputedStyle(pin).paddingLeft) || 0;
+  span = Math.max(0, trk.scrollWidth - (pin.clientWidth - 2 * pad));
+  sec.style.height = (pin.offsetHeight + span) + "px";
+  updEdu();
+}
+function updEdu() {
+  if (RM.matches) return;
+  const p = span ? Math.min(1, Math.max(0, -sec.getBoundingClientRect().top / span)) : 0;
+  trk.style.transform = `translateX(${-p * span}px)`;
+  slide.value = Math.round(p * 1000);
+}
+addEventListener("scroll", () => requestAnimationFrame(updEdu), {passive: true});
+addEventListener("resize", layoutEdu);
+addEventListener("load", layoutEdu);
+// La barre horizontale pilote le défilement (glisser le curseur, clavier ou clic sur la barre)
+slide.addEventListener("input", () => {
+  if (RM.matches) return;
+  scrollTo({top: sec.getBoundingClientRect().top + scrollY + slide.value / 1000 * span, behavior: "instant"});
+});
+// Glissement horizontal au pavé tactile
+pin.addEventListener("wheel", e => {
+  if (!RM.matches && Math.abs(e.deltaX) > Math.abs(e.deltaY)) { e.preventDefault(); scrollBy(0, e.deltaX); }
+}, {passive: false});
+// Glissement horizontal au doigt
+let tp = null;
+pin.addEventListener("touchstart", e => { tp = [e.touches[0].clientX, e.touches[0].clientY]; }, {passive: true});
+pin.addEventListener("touchmove", e => {
+  if (!tp || RM.matches) return;
+  const x = e.touches[0].clientX, y = e.touches[0].clientY;
+  if (Math.abs(x - tp[0]) > Math.abs(y - tp[1])) scrollBy(0, tp[0] - x);
+  tp = [x, y];
+}, {passive: true});
+pin.addEventListener("touchend", () => { tp = null; });
+$("#photo").innerHTML = D.photo ? `<img src="${D.photo}" alt="Ilyes KECILI">` : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-4.4 0-8 2.2-8 5v3h16v-3c0-2.8-3.6-5-8-5z"/></svg>';
+
+function render(l) {
+  const T = L[l];
+  document.documentElement.lang = l;
+  document.documentElement.dir = l === "ar" ? "rtl" : "ltr";
+  document.querySelectorAll("[data-i]").forEach(e => e.textContent = T[e.dataset.i]);
+  const tx = x => typeof x === "number" ? T[x] : x;
+  $("#age").textContent = T[9].replace("{n}", age());
+  $("#projects").innerHTML = D.projects.map(p => `<article class="cell"><h3>${p.t}</h3><p>${T[p.k]}</p>${p.tags ? `<div class="tags">${p.tags.map(t => `<span>${typeof t === "number" ? T[t] : t}</span>`).join("")}</div>` : ""}${p.u ? `<a class="go" href="${p.u}">${p.l || "GitHub"}</a>` : ""}</article>`).join("");
+  $("#skills").innerHTML = D.skills.map(([n,v]) => `<li><div class="row"><span>${tx(n)}</span><span>${v} %</span></div><div class="bar" role="progressbar" aria-label="${tx(n)}" aria-valuenow="${v}" aria-valuemin="0" aria-valuemax="100" style="--w:${v}%"><i></i></div></li>`).join("");
+  $("#langs").innerHTML = D.langs.map(([i,v,lab]) => `<li class="lang"><span>${T[i]}${lab ? ` <small>(${T[lab]})</small>` : ""}</span><span class="stars" role="img" aria-label="${v}/5">${[1,2,3,4,5].map(k => `<i class="${k<=v?"on":""}"></i>`).join("")}</span></li>`).join("");
+  $("#groups").innerHTML = [[25,[27,28,29]],[26,[30,31,32,42]]].map(([h,it]) => `<div><h3>${T[h]}</h3><div class="chips">${it.map(i => `<span>${T[i]}</span>`).join("")}</div></div>`).join("");
+  slide.setAttribute("aria-label", T[53]);
+  const doc = d => `<div class="edoc"><b>${T[d.k]}</b><div class="eimg">${d.img ? `<img src="${d.img}" alt="${T[d.k]}">` : T[58]}</div>${d.pdf ? `<a class="btn epdf" href="${d.pdf}" target="_blank" rel="noopener">${T[61]}</a>` : `<span class="btn epdf off" aria-disabled="true">${T[62]}</span>`}</div>`;
+  trk.innerHTML = D.edu.map(e => `<article class="cell ecard${e.docs.length > 1 ? " wide" : ""}"><h3>${e.n ? T[55].replace("{n}", e.n) : T[e.t]}</h3>${e.cur ? `<span class="badge">${T[59]}</span>` : ""}<div class="edocs">${e.docs.map(doc).join("")}</div>${e.avg ? `<div class="egr"><span>${T[63]}</span><b>${e.avg}</b></div>` : ""}${(e.g || []).map(([a, b]) => `<div class="egl"><span>${a}</span><span>${b}</span></div>`).join("")}</article>`).join("");
+  layoutEdu();
+  $("#passions").innerHTML = D.passions.map(p => `<span>${tx(p)}</span>`).join("");
+  const fd = new Intl.DateTimeFormat(l, {day: "numeric", month: "long", year: "numeric"});
+  $("#events").innerHTML = [
+    {d: fd.format(new Date(2026, 8, 27)), t: "Hackathon NVIDIA x GoMyCode", p: T[12], team: 1, c: "certificat-gomycode-hackathon.pdf"},
+    {d: fd.formatRange(new Date(2026, 7, 8), new Date(2026, 7, 14)), t: "Jammy Jam", u: "https://jammy-jam.vercel.app/", p: T[33], w: T[34], c: "certificat-jammy-jam.pdf", proj: {n: "Beneath", u: "https://aladins.itch.io/beneath"}}
+  ].map(e => `<li><time>${e.d}</time><h3>${e.u ? `<a href="${e.u}">${e.t}</a>` : e.t}</h3>${e.w ? `<p class="win">🥇 ${e.w}</p>` : ""}<p>${e.p}</p>${e.proj ? `<p>${T[37]} : <a href="${e.proj.u}">${e.proj.n}</a></p>` : ""}${e.team ? `<p>${T[36]} : Sauce Crew · ${T[37]} : <a href="${D.github}/himaya">Himaya</a></p>` : ""}${e.c ? `<a class="cert" href="${e.c}" target="_blank" rel="noopener">${T[35]}</a>` : ""}</li>`).join("");
+  $("#ytbox").innerHTML = `<h3>${T[21]}</h3><p style="color:var(--mut)">${T[22]}</p><a class="btn main" href="${D.youtube}">${IC.yt}${T[23]}</a>`;
+  $("#links").innerHTML = `<a href="${D.github}">${IC.gh}GitHub</a><a href="${D.itch}">${IC.itch}itch.io</a><a href="${D.youtube}">${IC.yt}YouTube</a><a href="${D.steam}">${IC.steam}Steam</a><a href="${D.insta}">${IC.ig}Instagram</a><button class="cp" data-c="${D.email}">${IC.mail}Email</button><button class="cp" data-c="${D.discord}">${IC.dc}Discord</button>`;
+}
+
+const sw = $("#sw");
+sw.innerHTML = Object.keys(L).map(k => `<option value="${k}">${N[k]}</option>`).join("");
+let lang = "en";
+try { lang = localStorage.getItem("lang") || ""; } catch (e) {}
+if (!L[lang]) lang = L[(navigator.language || "").slice(0,2)] ? navigator.language.slice(0,2) : "en";
+sw.value = lang; render(lang);
+sw.onchange = () => { render(sw.value); try { localStorage.setItem("lang", sw.value); } catch (e) {} };
+
+// Copier le pseudo Discord au clic
+document.addEventListener("click", e => {
+  const b = e.target.closest("button[data-c]"); if (!b) return;
+  navigator.clipboard?.writeText(b.dataset.c);
+  const old = b.innerHTML; b.textContent = "✓ " + b.dataset.c;
+  setTimeout(() => b.innerHTML = old, 1500);
+});
+
+// La couleur du site change selon la section au milieu de l’écran
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) document.documentElement.dataset.t = e.target.dataset.t;
+}), {rootMargin: "-50% 0px -50% 0px"});
+document.querySelectorAll('[data-t]:not(html)').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
