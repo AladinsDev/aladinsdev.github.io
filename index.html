@@ -388,7 +388,7 @@ function render(l) {
   $("#events").innerHTML = [
     {d: fd.format(new Date(2026, 8, 27)), t: "Hackathon NVIDIA x GoMyCode", p: T[12], team: 1, c: "certificat-gomycode-hackathon.pdf"},
     {d: fd.formatRange(new Date(2026, 7, 8), new Date(2026, 7, 14)), t: "Jammy Jam", u: "https://jammy-jam.vercel.app/", p: T[33], w: T[34], c: "certificat-jammy-jam.pdf", proj: {n: "Beneath", u: "https://aladins.itch.io/beneath"}}
-  ].map(e => `<li><time>${e.d}</time><h3>${e.u ? `<a href="${e.u}">${e.t}</a>` : e.t}</h3>${e.w ? `<p class="win">🥇 ${e.w}</p>` : ""}<p>${e.p}</p>${e.proj ? `<p>${T[37]} : <a href="${e.proj.u}">${e.proj.n}</a></p>` : ""}${e.team ? `<p>${T[36]} : Sauce Crew · ${T[37]} : <a href="${D.github}/himaya">Himaya</a></p>` : ""}${e.c ? `<a class="cert" href="${e.c}" target="_blank" rel="noopener">${T[35]}</a>` : ""}</li>`).join("");
+  ].map(e => `<li><time>${e.d}</time><h3>${e.u ? `<a href="${e.u}">${e.t}</a>` : e.t}</h3>${e.w ? `<p class="win">🥇 ${e.w}</p>` : ""}<p>${e.p}</p>${e.proj ? `<p>${T[37]} : <a href="${e.proj.u}">${e.proj.n}</a></p>` : ""}${e.team ? `<p>${T[36]} : Sauce Crew · ${T[37]} : <a href="${D.github}/himaya">Himaya</a></p>` : ""}${e.c ? `<a class="cert" href="${e.c}" download>${T[35]}</a>` : ""}</li>`).join("");
   $("#ytbox").innerHTML = `<h3>${T[21]}</h3><p style="color:var(--mut)">${T[22]}</p><a class="btn main" href="${D.youtube}">${IC.yt}${T[23]}</a>`;
   $("#links").innerHTML = `<a href="${D.github}">${IC.gh}GitHub</a><a href="${D.itch}">${IC.itch}itch.io</a><a href="${D.youtube}">${IC.yt}YouTube</a><a href="${D.steam}">${IC.steam}Steam</a><a href="${D.insta}">${IC.ig}Instagram</a><button class="cp" data-c="${D.email}">${IC.mail}Email</button><button class="cp" data-c="${D.discord}">${IC.dc}Discord</button>`;
 }
