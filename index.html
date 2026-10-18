@@ -39,7 +39,7 @@ radial-gradient(ellipse at 50% 30%,var(--b1),var(--b2) 45%,var(--b3)) fixed}
 body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
 background:radial-gradient(3px 3px at 15% 20%,var(--v) 50%,#0000 55%),radial-gradient(2px 2px at 40% 70%,#fffc 50%,#0000 55%),radial-gradient(3px 3px at 75% 30%,var(--lav) 50%,#0000 55%),radial-gradient(2px 2px at 60% 85%,var(--pink) 50%,#0000 55%);
 background-size:500px 500px,420px 420px,600px 600px,350px 350px;animation:tw 4s ease-in-out infinite,dr 40s linear infinite}
-body:has(.cell:hover)::before{animation-duration:.8s,6s}
+body:has(.cell:not(.ecard):hover)::before{animation-duration:.8s,6s}
 @keyframes ss{0%,70%{--s:-50vw}to{--s:120vw}}
 @keyframes ro{to{--a:360deg}}
 @keyframes tw{0%,100%{opacity:.4}50%{opacity:1}}
@@ -160,6 +160,8 @@ section[data-t=indigo]{--sec:#6c7bff}
 .epin h2{margin-bottom:0}
 .etrack{display:flex;gap:24px;width:max-content;direction:ltr;perspective:1000px;will-change:transform}
 .ecard{flex:none;width:min(320px,78vw);display:flex;flex-direction:column;gap:14px}
+.ecard:hover{transform:none;border-color:color-mix(in srgb,var(--v) 30%,transparent);box-shadow:0 10px 25px #000a}
+.ecard:hover::after{transform:none}
 html[dir=rtl] .ecard{direction:rtl}
 .ecard h3{margin:0}
 .eimg{aspect-ratio:4/3;display:grid;place-items:center;text-align:center;border:2px dashed color-mix(in srgb,var(--v) 45%,transparent);border-radius:10px;color:var(--mut);font-size:.9rem;overflow:hidden}
