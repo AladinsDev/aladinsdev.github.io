@@ -186,8 +186,8 @@ html[dir=rtl] .ecard{direction:rtl}
 .eslide::-moz-range-thumb{width:56px;height:18px;border:0;border-radius:99px;background:linear-gradient(90deg,var(--v),var(--pink));box-shadow:0 0 14px var(--v)}
 .epin{touch-action:pan-y pinch-zoom}
 .ecard.wide{width:min(660px,92vw)}
-.edocs{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:16px}
-.edoc{display:flex;flex-direction:column;gap:10px}
+.edocs{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:16px;align-items-stretch}
+.edoc{display:flex;flex-direction:column;gap:10px;min-height:200px}
 .edoc>b{font-weight:600;color:var(--lav)}
 .epdf{display:block;text-align:center;font-size:.9rem;padding:8px 12px;margin-top:auto}
 .btn.off{opacity:.55;cursor:not-allowed;border-style:dashed}
