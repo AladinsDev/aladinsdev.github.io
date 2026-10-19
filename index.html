@@ -478,7 +478,7 @@ function render(l) {
   $("#langs").innerHTML = D.langs.map(([i,v,lab]) => `<li class="lang"><span>${T[i]}${lab ? ` <small>(${T[lab]})</small>` : ""}</span><span class="stars" role="img" aria-label="${v}/5">${[1,2,3,4,5].map(k => `<i class="${k<=v?"on":""}"></i>`).join("")}</span></li>`).join("");
   $("#groups").innerHTML = [[25,[28,29]],[26,[30,31,32,42]]].map(([h,it]) => `<div><h3>${T[h]}</h3><div class="chips">${it.map(i => `<span>${T[i]}</span>`).join("")}</div></div>`).join("");
   slide.setAttribute("aria-label", T[53]);
-  const doc = d => `<div class="edoc"><b>${T[d.k]}</b><div class="eimg">${d.img ? `<img src="${d.img}" alt="${T[d.k]}">` : T[58]}</div>${d.pdf ? `<a class="btn epdf" href="${d.pdf}" target="_blank" rel="noopener">${T[61]}</a>` : `<span class="btn epdf off" aria-disabled="true">${T[62]}</span>`}</div>`;
+  const doc = d => `<div class="edoc"><b>${T[d.k]}</b><div class="eimg">${d.img ? `<img src="${d.img}" alt="${T[d.k]}">` : d.pdf ? "PDF" : T[58]}</div>${d.pdf ? `<a class="btn epdf" href="${d.pdf}" target="_blank" rel="noopener">${T[61]}</a>` : `<span class="btn epdf off" aria-disabled="true">${T[62]}</span>`}</div>`;
   trk.innerHTML = D.edu.map(e => `<article class="cell ecard${e.docs.length > 1 ? " wide" : ""}"><h3>${e.n ? T[55].replace("{n}", e.n) : T[e.t]}</h3>${e.cur ? `<span class="badge">${T[59]}</span>` : ""}<div class="edocs">${e.docs.map(doc).join("")}</div>${e.avg ? `<div class="egr"><span>${T[63]}</span><b>${e.avg}</b></div>` : ""}${(e.g || []).map(([a, b]) => `<div class="egl"><span>${a}</span><span>${b}</span></div>`).join("")}</article>`).join("");
   layoutEdu();
   $("#passions").innerHTML = D.passions.map(p => `<span>${tx(p)}</span>`).join("");
