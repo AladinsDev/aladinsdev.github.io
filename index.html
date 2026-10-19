@@ -252,14 +252,17 @@ nav{animation:navin .7s ease 2.1s backwards}
     <div class="ibar"><i></i></div>
   </div>
 </div>
-<audio id="bgm" preload="auto" loop src="music.mp3"></audio>
+<audio id="bgm" preload="auto" loop muted src="music.mp3"></audio>
 <script>
-setTimeout(function(){
-  var e=document.getElementById("intro");
-  if(e)e.remove();
+(function(){
   var m=document.getElementById("bgm");
-  if(m){m.volume=0.35; m.play().catch(function(){ /* autoplay blocked */ });}
-},3200)
+  if(m){m.volume=0; m.muted=true; m.play().catch(function(){});}
+  setTimeout(function(){
+    var e=document.getElementById("intro");
+    if(e)e.remove();
+    if(m){m.muted=false; m.volume=0.35;}
+  },3200);
+})();
 </script>
 
 
