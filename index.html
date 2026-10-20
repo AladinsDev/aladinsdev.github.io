@@ -284,13 +284,13 @@ nav{animation:navin .7s ease 2.1s backwards}
       <a class="btn main" href="#projets" data-i="5"></a>
     </div>
     <div class="btns socials">
-      <a class="btn" id="hg2" href="#">GitHub</a>
-      <a class="btn" id="hy" href="#">YouTube</a>
-      <a class="btn" id="hi" href="#">itch.io</a>
-      <a class="btn" id="hs" href="#"></a>
+      <a class="btn" id="hg2" href="#" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn" id="hy" href="#" target="_blank" rel="noopener">YouTube</a>
+      <a class="btn" id="hi" href="#" target="_blank" rel="noopener">itch.io</a>
+      <a class="btn" id="hs" href="#" target="_blank" rel="noopener"></a>
       <button class="btn" id="hd" type="button"></button>
       <button class="btn" id="hm" type="button"></button>
-      <a class="btn" id="hg" href="#"></a>
+      <a class="btn" id="hg" href="#" target="_blank" rel="noopener"></a>
     </div>
   </div>
   <div class="cell photo" id="photo"></div>
@@ -473,7 +473,7 @@ function render(l) {
   $("#mbtn").setAttribute("aria-label", T[69]); $("#mbtn").title = T[69]; $("#mvol").setAttribute("aria-label", T[70]);
   const tx = x => typeof x === "number" ? T[x] : x;
   $("#age").textContent = T[9].replace("{n}", age());
-  $("#projects").innerHTML = D.projects.map(p => `<article class="cell"><h3>${p.t}</h3><p>${T[p.k]}</p>${p.tags ? `<div class="tags">${p.tags.map(t => `<span>${typeof t === "number" ? T[t] : t}</span>`).join("")}</div>` : ""}${p.u ? `<a class="go" href="${p.u}">${p.l || "GitHub"}</a>` : ""}</article>`).join("");
+  $("#projects").innerHTML = D.projects.map(p => `<article class="cell"><h3>${p.t}</h3><p>${T[p.k]}</p>${p.tags ? `<div class="tags">${p.tags.map(t => `<span>${typeof t === "number" ? T[t] : t}</span>`).join("")}</div>` : ""}${p.u ? `<a class="go" href="${p.u}" target="_blank" rel="noopener">${p.l || "GitHub"}</a>` : ""}</article>`).join("");
   $("#skills").innerHTML = D.skills.map(([n,v]) => `<li><div class="row"><span>${tx(n)}</span><span>${v} %</span></div><div class="bar" role="progressbar" aria-label="${tx(n)}" aria-valuenow="${v}" aria-valuemin="0" aria-valuemax="100" style="--w:${v}%"><i></i></div></li>`).join("");
   $("#langs").innerHTML = D.langs.map(([i,v,lab]) => `<li class="lang"><span>${T[i]}${lab ? ` <small>(${T[lab]})</small>` : ""}</span><span class="stars" role="img" aria-label="${v}/5">${[1,2,3,4,5].map(k => `<i class="${k<=v?"on":""}"></i>`).join("")}</span></li>`).join("");
   $("#groups").innerHTML = [[25,[28,29]],[26,[30,31,32,42]]].map(([h,it]) => `<div><h3>${T[h]}</h3><div class="chips">${it.map(i => `<span>${T[i]}</span>`).join("")}</div></div>`).join("");
@@ -486,9 +486,9 @@ function render(l) {
   $("#events").innerHTML = [
     {d: fd.format(new Date(2026, 8, 27)), t: "Hackathon NVIDIA x GoMyCode", p: T[12], team: 1, c: "certificat-gomycode-hackathon.pdf"},
     {d: fd.formatRange(new Date(2026, 7, 8), new Date(2026, 7, 14)), t: "Jammy Jam", u: "https://jammy-jam.vercel.app/", p: T[33], w: T[34], c: "certificat-jammy-jam.pdf", proj: {n: "Beneath", u: "https://aladins.itch.io/beneath"}}
-  ].map(e => `<li><time>${e.d}</time><h3>${e.u ? `<a href="${e.u}">${e.t}</a>` : e.t}</h3>${e.w ? `<p class="win">🥇 ${e.w}</p>` : ""}<p>${e.p}</p>${e.proj ? `<p>${T[37]} : <a href="${e.proj.u}">${e.proj.n}</a></p>` : ""}${e.team ? `<p>${T[36]} : Sauce Crew · ${T[37]} : <a href="${D.github}/himaya">Himaya</a></p>` : ""}${e.c ? `<a class="cert" href="${e.c}" download>${T[35]}</a>` : ""}</li>`).join("");
-  $("#ytbox").innerHTML = `<h3>${T[21]}</h3><p style="color:var(--mut)">${T[22]}</p><a class="btn main" href="${D.youtube}">${IC.yt}${T[23]}</a>`;
-  $("#links").innerHTML = `<a href="${D.github}">${IC.gh}GitHub</a><a href="${D.itch}">${IC.itch}itch.io</a><a href="${D.youtube}">${IC.yt}YouTube</a><a href="${D.steam}">${IC.steam}Steam</a><a href="${D.insta}">${IC.ig}Instagram</a><button class="cp" data-c="${D.email}">${IC.mail}Email</button><button class="cp" data-c="${D.discord}">${IC.dc}Discord</button>`;
+  ].map(e => `<li><time>${e.d}</time><h3>${e.u ? `<a href="${e.u}" target="_blank" rel="noopener">${e.t}</a>` : e.t}</h3>${e.w ? `<p class="win">🥇 ${e.w}</p>` : ""}<p>${e.p}</p>${e.proj ? `<p>${T[37]} : <a href="${e.proj.u}" target="_blank" rel="noopener">${e.proj.n}</a></p>` : ""}${e.team ? `<p>${T[36]} : Sauce Crew · ${T[37]} : <a href="${D.github}/himaya" target="_blank" rel="noopener">Himaya</a></p>` : ""}${e.c ? `<a class="cert" href="${e.c}" target="_blank" rel="noopener">${T[35]}</a>` : ""}</li>`).join("");
+  $("#ytbox").innerHTML = `<h3>${T[21]}</h3><p style="color:var(--mut)">${T[22]}</p><a class="btn main" href="${D.youtube}" target="_blank" rel="noopener">${IC.yt}${T[23]}</a>`;
+  $("#links").innerHTML = `<a href="${D.github}" target="_blank" rel="noopener">${IC.gh}GitHub</a><a href="${D.itch}" target="_blank" rel="noopener">${IC.itch}itch.io</a><a href="${D.youtube}" target="_blank" rel="noopener">${IC.yt}YouTube</a><a href="${D.steam}" target="_blank" rel="noopener">${IC.steam}Steam</a><a href="${D.insta}" target="_blank" rel="noopener">${IC.ig}Instagram</a><button class="cp" data-c="${D.email}">${IC.mail}Email</button><button class="cp" data-c="${D.discord}">${IC.dc}Discord</button>`;
 }
 
 // Musique d’ambiance : bouton on/off + volume. Elle démarre sur un clic (les navigateurs interdisent le son automatique).
