@@ -190,6 +190,44 @@ html[dir=rtl] .ecard{direction:rtl}
 .edoc{display:flex;flex-direction:column;gap:10px;min-height:200px}
 .edoc>b{font-weight:600;color:var(--lav)}
 .epdf{display:block;text-align:center;font-size:.9rem;padding:8px 12px;margin-top:auto}
+.edu{position:relative}
+.ewall{position:absolute;inset:0;z-index:5;display:grid;place-items:center;padding:20px;pointer-events:none;transition:opacity .7s ease,visibility 0s .7s}
+.edu:not(.locked) .ewall{opacity:0;visibility:hidden}
+.elock{pointer-events:auto;position:relative;width:min(420px,100%);padding:26px;border-radius:16px;border:1px solid color-mix(in srgb,var(--v) 40%,transparent);background:color-mix(in srgb,var(--c1) 82%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 10px 40px #000b;display:flex;flex-direction:column;gap:14px;transition:transform .7s cubic-bezier(.2,.8,.2,1),border-color .3s,box-shadow .3s}
+.edu:not(.locked) .elock{transform:scale(.9) translateY(-12px)}
+.elock p{margin:0;color:var(--mut)}
+.elock .erow{display:flex;gap:10px;flex-wrap:wrap;transition:opacity .3s}
+.elock p{transition:opacity .3s}
+.epw{position:relative;flex:1 1 180px;min-width:0}
+.epw input{width:100%;box-sizing:border-box;padding:12px 46px 12px 14px;border-radius:10px;border:1px solid color-mix(in srgb,var(--v) 45%,transparent);background:#00000040;color:var(--txt);font:inherit}
+.epw input:focus{outline:2px solid var(--v);outline-offset:2px}
+.epw input:disabled,.elock .btn:disabled{opacity:.5;cursor:not-allowed}
+.eye{position:absolute;right:6px;top:50%;translate:0 -50%;display:grid;place-items:center;padding:6px;border:0;border-radius:8px;background:none;color:var(--lav);cursor:pointer}
+.eye:hover{color:var(--txt)}
+.eye svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.eye .off{display:none}
+.eye[aria-pressed=true] .on{display:none}
+.eye[aria-pressed=true] .off{display:block}
+.elock small{min-height:1.2em;text-align:left;color:#ff8a8a}
+.echeck{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;opacity:0}
+.echeck svg{width:72px;height:72px;fill:none;stroke:#5dffa0;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 10px #5dffa0)}
+.echeck circle{stroke-dasharray:63;stroke-dashoffset:63}
+.echeck path{stroke-dasharray:24;stroke-dashoffset:24}
+.elock.ok{border-color:#5dffa0;box-shadow:0 0 40px #5dffa070,0 10px 40px #000b}
+.elock.ok p,.elock.ok .erow,.elock.ok small{opacity:0}
+.elock.ok .echeck{opacity:1}
+.elock.ok .echeck circle{animation:edraw .5s ease forwards}
+.elock.ok .echeck path{animation:edraw .35s .3s ease forwards}
+.elock.ok .echeck svg{animation:epop .6s cubic-bezier(.2,1.4,.4,1)}
+.elock.bad{border-color:#ff6b6b;animation:eshake .4s}
+@keyframes edraw{to{stroke-dashoffset:0}}
+@keyframes epop{from{scale:.4}to{scale:1}}
+@keyframes eshake{20%,60%{translate:-9px 0}40%,80%{translate:9px 0}}
+.etrack{transition:filter .9s ease,opacity .9s ease}
+.eslide{transition:opacity .9s ease,filter .9s ease}
+.edu.locked .etrack{filter:blur(14px) saturate(.8);opacity:.85;pointer-events:none;user-select:none}
+.edu.locked .eslide{opacity:.4;filter:blur(3px);pointer-events:none}
+@media(prefers-reduced-motion:reduce){.elock,.ewall,.etrack,.eslide{transition:none}.elock.bad{animation:none}.elock.ok .echeck *{animation:none!important;stroke-dashoffset:0}}
 .btn.off{opacity:.55;cursor:not-allowed;border-style:dashed}
 .btn.off:hover{transform:none;box-shadow:none}
 @media(prefers-reduced-motion:reduce){.edu{height:auto!important}.epin{position:static;height:auto;overflow:visible;padding-block:96px}.etrack{transform:none!important;overflow-x:auto;width:auto;scroll-snap-type:x mandatory;padding-bottom:16px}.ecard{scroll-snap-align:start}.eslide{display:none}}
@@ -199,7 +237,8 @@ nav,section,footer,.hero p,.btns{transition:opacity .35s ease}
 .hero h1{display:inline-block}
 
 /* Animation d’intro au chargement : logo dessiné, nom, barre de chargement, puis l’écran s’efface et le haut de page apparaît en cascade */
-#intro{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:radial-gradient(circle at 50% 45%,#2a0f5e,#12082e 45%,#06020f);animation:introOut .7s ease 2s forwards}
+#intro{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:radial-gradient(circle at 50% 45%,#2a0f5e,#12082e 45%,#06020f)}
+#intro.out{animation:introOut .7s ease forwards;pointer-events:none}
 #intro .ibox{display:grid;justify-items:center;gap:22px}
 #intro svg{overflow:visible;filter:drop-shadow(0 0 18px #9b5cff99)}
 #intro .ir{stroke-dasharray:1;stroke-dashoffset:1;animation:idraw 1s cubic-bezier(.6,0,.2,1) .15s forwards}
@@ -211,6 +250,23 @@ nav,section,footer,.hero p,.btns{transition:opacity .35s ease}
 @keyframes ipop{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
 @keyframes ispell{from{opacity:0;letter-spacing:.9em}to{opacity:1;letter-spacing:.3em}}
 @keyframes ifill{to{width:100%}}
+#intro .igrid{display:grid;place-items:center;min-height:50px}
+#intro .igrid>*{grid-area:1/1}
+#intro .ibar{animation:ifade .4s ease 1.9s forwards}
+#intro .ienter{font:600 .9rem Outfit,system-ui,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#f6f0ff;padding:13px 34px;border-radius:99px;border:1px solid #9b5cff;background:#9b5cff22;cursor:pointer;visibility:hidden;animation:ienter .6s ease 2s both,ipulse 2.2s ease-in-out 2.6s infinite;transition:background .2s,transform .2s}
+#intro .ienter:hover,#intro .ienter:focus-visible{background:#9b5cff66;transform:scale(1.05);outline:none}
+@keyframes ifade{to{opacity:0}}
+@keyframes ienter{from{opacity:0;transform:translateY(10px);visibility:hidden}to{opacity:1;transform:none;visibility:visible}}
+@keyframes ipulse{0%,100%{box-shadow:0 0 0 0 #9b5cff00}50%{box-shadow:0 0 24px 2px #9b5cff80}}
+/* Tant que l’écran d’intro est là, la page derrière attend ; elle apparaît en cascade dès qu’on clique sur Entrer */
+html.gate nav,html.gate .hero h1,html.gate .hero p,html.gate .hero .btns,html.gate .hero .photo{animation-play-state:paused}
+html.go nav{animation-delay:.25s}
+html.go .hero h1{animation-delay:.05s}
+html.go .hero p{animation-delay:.3s}
+html.go .hero p.age{animation-delay:.2s}
+html.go .hero .photo{animation-delay:.35s}
+html.go .hero .btns{animation-delay:.45s}
+html.go .hero .socials{animation-delay:.6s}
 @keyframes introOut{to{opacity:0;visibility:hidden;transform:scale(1.06)}}
 @keyframes rise{from{opacity:0;transform:translateY(26px)}}
 @keyframes navin{from{opacity:0;transform:translateY(-100%)}}
@@ -241,7 +297,7 @@ nav{animation:navin .7s ease 2.1s backwards}
 </style>
 </head>
 <body>
-<div id="intro" aria-hidden="true">
+<div id="intro" role="dialog" aria-label="Ilyes KECILI">
   <div class="ibox">
     <svg viewBox="0 0 64 64" width="104" height="104">
       <defs><linearGradient id="ig" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9b5cff"/><stop offset="1" stop-color="#e07bff"/></linearGradient></defs>
@@ -249,19 +305,30 @@ nav{animation:navin .7s ease 2.1s backwards}
       <path class="ia" fill="url(#ig)" fill-rule="evenodd" d="M32 12 50 52h-8.500l-3-8h-13l-3 8H14zM32 26l-4 10h8z"/>
     </svg>
     <div class="iname">ILYES KECILI</div>
-    <div class="ibar"><i></i></div>
+    <div class="igrid"><div class="ibar"><i></i></div><button class="ienter" id="ienter" type="button"></button></div>
   </div>
 </div>
 <audio id="bgm" preload="auto" loop muted src="music.mp3"></audio>
+<noscript><style>#intro{display:none!important}html.gate nav,html.gate .hero *{animation-play-state:running!important}</style></noscript>
 <script>
 (function(){
-  var m=document.getElementById("bgm");
+  var m=document.getElementById("bgm"), e=document.getElementById("intro"), b=document.getElementById("ienter"), h=document.documentElement;
   if(m){m.volume=0; m.muted=true; m.play().catch(function(){});}
-  setTimeout(function(){
-    var e=document.getElementById("intro");
-    if(e)e.remove();
-    if(m){m.muted=false; m.volume=0.35;}
-  },3200);
+  if(!e||!b||matchMedia("(prefers-reduced-motion: reduce)").matches){if(e)e.remove();return;}
+  var T={fr:"Entrer",en:"Enter",ar:"دخول",de:"Eintreten",ja:"入る",zh:"进入",it:"Entra",es:"Entrar",ru:"Войти"}, l="";
+  try{l=localStorage.getItem("lang")||"";}catch(x){}
+  if(!T[l])l=(navigator.language||"").slice(0,2);
+  b.textContent=T[l]||T.en;
+  h.classList.add("gate");
+  // Le clic sur « Entrer » est le geste qui autorise le navigateur à lancer la musique (voir le contrôleur de musique plus bas)
+  function go(){
+    if(e.classList.contains("out"))return;
+    window.__entered=1; e.classList.add("out");
+    h.classList.remove("gate"); h.classList.add("go");
+    setTimeout(function(){e.remove();},800);
+  }
+  b.addEventListener("click",go);
+  setTimeout(function(){try{b.focus({preventScroll:true});}catch(x){}},2000);
 })();
 </script>
 
@@ -315,9 +382,10 @@ nav{animation:navin .7s ease 2.1s backwards}
   </div>
 </section>
 
-<section id="formation" class="edu" data-t="indigo">
+<section id="formation" class="edu locked" data-t="indigo">
   <div class="epin">
     <h2 data-i="53"></h2>
+    <div class="ewall"><form class="elock" id="elock" autocomplete="off"><p id="elt"></p><div class="erow"><div class="epw"><input id="epw" type="password" autocomplete="off" spellcheck="false"><button class="eye" id="eye" type="button" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><g class="on"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></g><g class="off"><path d="M3 3l18 18M10.6 5.1A10 10 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.2 4.2M6.6 6.6A17 17 0 0 0 2 12s3.6 7 10 7a9.7 9.7 0 0 0 4.4-1M9.9 9.9a3 3 0 0 0 4.2 4.2"/></g></svg></button></div><button class="btn main" type="submit" id="ebtn"></button></div><small id="eerr" role="alert"></small><div class="echeck" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m7.5 12.5 3 3 6-6.5"/></svg></div></form></div>
     <div class="etrack" id="etrack"></div>
     <input class="eslide" id="eslide" type="range" min="0" max="1000" value="0">
   </div>
@@ -349,6 +417,12 @@ nav{animation:navin .7s ease 2.1s backwards}
 <script>
 // ✏️ Données du site (les textes traduits sont dans L, plus bas)
 const D = {
+  // 🔒 Mot de passe de la section Études : on ne stocke que son empreinte (PBKDF2-SHA256, 210 000 itérations + sel).
+  // Pour le changer, change éventuellement le sel, puis colle ceci dans la console (F12) en remplaçant MDP :
+  //   crypto.subtle.importKey("raw",new TextEncoder().encode("MDP"),"PBKDF2",false,["deriveBits"]).then(k=>crypto.subtle.deriveBits({name:"PBKDF2",hash:"SHA-256",salt:new TextEncoder().encode(D.studiesSalt),iterations:210000},k,256)).then(b=>console.log([...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")))
+  // puis colle le résultat dans studiesHash.
+  studiesSalt: "7180e027e8edf435260c81039e8b1284",
+  studiesHash: "e3e90934164db9c9e60dfa089a760a331a3a858d47fccaf0e44928faa8f9850b",
   born: [2007, 4, 8], // année, mois (0 = janvier), jour : seul l’âge est affiché
   github: "https://github.com/AladinsDev",
   itch: "https://aladins.itch.io/",
@@ -421,6 +495,76 @@ $('#hd').dataset.c = D.discord; $('#hd').innerHTML = IC.dc + 'Discord';
 
 const sec = $("#formation"), pin = sec.querySelector(".epin"), trk = $("#etrack"), slide = $("#eslide");
 const RM = matchMedia("(prefers-reduced-motion: reduce)");
+// 🔒 Verrou de la section Études
+const LK = {
+  fr:["Cette section est protégée.","Mot de passe","Déverrouiller","Mot de passe incorrect","Trop d’essais. Réessaie dans {s} s.","Afficher / masquer le mot de passe"],
+  en:["This section is protected.","Password","Unlock","Wrong password","Too many attempts. Try again in {s} s.","Show / hide password"],
+  ar:["هذا القسم محمي.","كلمة المرور","فتح","كلمة المرور غير صحيحة","محاولات كثيرة جدًا. أعد المحاولة بعد {s} ثانية.","إظهار / إخفاء كلمة المرور"],
+  de:["Dieser Bereich ist geschützt.","Passwort","Entsperren","Falsches Passwort","Zu viele Versuche. Versuche es in {s} s erneut.","Passwort anzeigen / verbergen"],
+  ja:["このセクションは保護されています。","パスワード","解除","パスワードが違います","試行回数が多すぎます。{s}秒後にもう一度お試しください。","パスワードを表示 / 非表示"],
+  zh:["此部分受密码保护。","密码","解锁","密码错误","尝试次数过多，请{s}秒后重试。","显示 / 隐藏密码"],
+  it:["Questa sezione è protetta.","Password","Sblocca","Password errata","Troppi tentativi. Riprova tra {s} s.","Mostra / nascondi password"],
+  es:["Esta sección está protegida.","Contraseña","Desbloquear","Contraseña incorrecta","Demasiados intentos. Inténtalo de nuevo en {s} s.","Mostrar / ocultar contraseña"],
+  ru:["Этот раздел защищён.","Пароль","Открыть","Неверный пароль","Слишком много попыток. Повторите через {s} с.","Показать / скрыть пароль"]
+};
+const lk = i => (LK[document.documentElement.lang] || LK.en)[i];
+let unlocked = false;
+try { unlocked = sessionStorage.getItem("edu") === D.studiesHash; } catch (e) {}
+sec.classList.toggle("locked", !unlocked);
+async function kdf(t) {
+  const enc = new TextEncoder();
+  const k = await crypto.subtle.importKey("raw", enc.encode(t), "PBKDF2", false, ["deriveBits"]);
+  const b = await crypto.subtle.deriveBits({name: "PBKDF2", hash: "SHA-256", salt: enc.encode(D.studiesSalt), iterations: 210000}, k, 256);
+  return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, "0")).join("");
+}
+// Anti brute-force : après 3 échecs, délai qui double à chaque essai (10 s, 20 s, 40 s… jusqu’à 15 min).
+// L’état est gardé dans localStorage, donc recharger la page ne remet rien à zéro.
+const FK = "edu_f";
+const getF = () => { try { return JSON.parse(localStorage.getItem(FK)) || {n: 0, t: 0}; } catch (e) { return {n: 0, t: 0}; } };
+const setF = f => { try { localStorage.setItem(FK, JSON.stringify(f)); } catch (e) {} };
+const elock = $("#elock"), epw = $("#epw"), ebtn = $("#ebtn"), eerr = $("#eerr"), eye = $("#eye");
+let cd;
+function tick() {
+  clearInterval(cd);
+  const left = Math.ceil((getF().t - Date.now()) / 1000);
+  const busy = left > 0;
+  epw.disabled = ebtn.disabled = busy;
+  if (!busy) { if (eerr.dataset.lock) { eerr.textContent = ""; delete eerr.dataset.lock; } return; }
+  eerr.dataset.lock = 1;
+  eerr.textContent = lk(4).replace("{s}", left);
+  cd = setInterval(tick, 1000);
+}
+eye.addEventListener("click", () => {
+  const show = epw.type === "password";
+  epw.type = show ? "text" : "password";
+  eye.setAttribute("aria-pressed", show);
+  epw.focus();
+});
+elock.addEventListener("animationend", e => { if (e.animationName === "eshake") elock.classList.remove("bad"); });
+elock.addEventListener("submit", async e => {
+  e.preventDefault();
+  if (unlocked || epw.disabled || !epw.value) return;
+  epw.disabled = ebtn.disabled = true;
+  let ok = false;
+  try { ok = (await kdf(epw.value)) === D.studiesHash; } catch (x) {}
+  if (ok) {
+    unlocked = true; setF({n: 0, t: 0});
+    try { sessionStorage.setItem("edu", D.studiesHash); } catch (x) {}
+    eerr.textContent = ""; epw.value = ""; epw.type = "password"; eye.setAttribute("aria-pressed", "false");
+    elock.classList.add("ok");
+    render($("#sw").value); // remplace l’aperçu factice par les vraies cartes (encore floutées)
+    setTimeout(() => sec.classList.remove("locked"), RM.matches ? 0 : 850);
+    return;
+  }
+  const f = getF(); f.n++;
+  if (f.n >= 3) f.t = Date.now() + Math.min(900, 10 * 2 ** (f.n - 3)) * 1000;
+  setF(f);
+  eerr.textContent = lk(3);
+  elock.classList.remove("bad"); void elock.offsetWidth; elock.classList.add("bad");
+  epw.disabled = ebtn.disabled = false; epw.select();
+  if (f.n >= 3) tick();
+});
+tick();
 let span = 0, p = 0;
 function setP(v) {
   p = Math.min(1, Math.max(0, v));
@@ -478,8 +622,9 @@ function render(l) {
   $("#langs").innerHTML = D.langs.map(([i,v,lab]) => `<li class="lang"><span>${T[i]}${lab ? ` <small>(${T[lab]})</small>` : ""}</span><span class="stars" role="img" aria-label="${v}/5">${[1,2,3,4,5].map(k => `<i class="${k<=v?"on":""}"></i>`).join("")}</span></li>`).join("");
   $("#groups").innerHTML = [[25,[28,29]],[26,[30,31,32,42]]].map(([h,it]) => `<div><h3>${T[h]}</h3><div class="chips">${it.map(i => `<span>${T[i]}</span>`).join("")}</div></div>`).join("");
   slide.setAttribute("aria-label", T[53]);
+  { const k = LK[l] || LK.en; $("#elt").textContent = k[0]; epw.placeholder = k[1]; epw.setAttribute("aria-label", k[1]); ebtn.textContent = k[2]; eye.title = k[5]; eye.setAttribute("aria-label", k[5]); tick(); }
   const doc = d => `<div class="edoc"><b>${T[d.k]}</b><div class="eimg">${d.img ? `<img src="${d.img}" alt="${T[d.k]}">` : d.pdf ? "PDF" : T[58]}</div>${d.pdf ? `<a class="btn epdf" href="${d.pdf}" target="_blank" rel="noopener">${T[61]}</a>` : `<span class="btn epdf off" aria-disabled="true">${T[62]}</span>`}</div>`;
-  trk.innerHTML = D.edu.map(e => `<article class="cell ecard${e.docs.length > 1 ? " wide" : ""}"><h3>${e.n ? T[55].replace("{n}", e.n) : T[e.t]}</h3>${e.cur ? `<span class="badge">${T[59]}</span>` : ""}<div class="edocs">${e.docs.map(doc).join("")}</div>${e.avg ? `<div class="egr"><span>${T[63]}</span><b>${e.avg}</b></div>` : ""}${(e.g || []).map(([a, b]) => `<div class="egl"><span>${a}</span><span>${b}</span></div>`).join("")}</article>`).join("");
+  trk.innerHTML = (unlocked ? D.edu : D.edu.map(e => ({t: e.t, n: e.n, cur: e.cur, docs: e.docs.map(d => ({k: d.k}))}))).map(e => `<article class="cell ecard${e.docs.length > 1 ? " wide" : ""}"><h3>${e.n ? T[55].replace("{n}", e.n) : T[e.t]}</h3>${e.cur ? `<span class="badge">${T[59]}</span>` : ""}<div class="edocs">${e.docs.map(doc).join("")}</div>${e.avg ? `<div class="egr"><span>${T[63]}</span><b>${e.avg}</b></div>` : ""}${(e.g || []).map(([a, b]) => `<div class="egl"><span>${a}</span><span>${b}</span></div>`).join("")}</article>`).join("");
   layoutEdu();
   $("#passions").innerHTML = D.passions.map(p => `<span>${tx(p)}</span>`).join("");
   const fd = new Intl.DateTimeFormat(l, {day: "numeric", month: "long", year: "numeric"});
@@ -497,8 +642,9 @@ function render(l) {
   const box = $("#music"), btn = $("#mbtn"), vol = $("#mvol");
   box.hidden = false;
   $("#mcredit").textContent = D.musicCredit || "";
-  const audio = new Audio(D.music);
-  audio.loop = true; audio.preload = "none";
+  const audio = $("#bgm") || new Audio(D.music);
+  if (audio.getAttribute("src") !== D.music) audio.src = D.music;
+  audio.loop = true;
   const speaker = '<path d="M3 9v6h4l5 4V5L7 9H3z"/>';
   const wrap = p => `<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">${speaker}${p}</svg>`;
   const ON = wrap('<path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>');
@@ -515,11 +661,12 @@ function render(l) {
       if (audio.volume === to) { clearInterval(fade); if (done) done(); }
     }, 50);
   };
+  const pref = v => { try { localStorage.setItem("mus", v); } catch (e) {} };
   const play = () => {
-    on = true; show(); audio.volume = 0;
-    audio.play().then(() => ramp(want)).catch(() => { on = false; show(); });
+    on = true; show(); audio.muted = false; audio.volume = 0;
+    return audio.play().then(() => { ramp(want); pref("1"); return true; }).catch(() => { on = false; show(); return false; });
   };
-  const stop = () => { on = false; show(); ramp(0, () => { if (!on) audio.pause(); }); };
+  const stop = () => { on = false; show(); pref("0"); ramp(0, () => { if (!on) audio.pause(); }); };
   btn.onclick = () => (on ? stop() : play());
   vol.oninput = () => {
     want = vol.value / 100;
@@ -529,7 +676,21 @@ function render(l) {
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) audio.pause(); else if (on) audio.play().catch(() => {});
   });
-  if (D.musicAutoplay) addEventListener("pointerdown", e => { if (!on && !box.contains(e.target)) play(); }, {once: true});
+  // Démarrage automatique : on tente tout de suite ; si le navigateur refuse (cas le plus courant),
+  // on réessaie à la première interaction (clic, touche, toucher). Si l’utilisateur a coupé la musique
+  // lors d’une visite précédente, elle ne redémarre pas toute seule.
+  if (D.musicAutoplay) {
+    let off = false; try { off = localStorage.getItem("mus") === "0"; } catch (e) {}
+    if (!off) {
+      const ev = ["pointerup", "click", "keydown", "touchend"];
+      const go = e => {
+        if (on || box.contains(e.target)) return;
+        play().then(ok => { if (ok) ev.forEach(t => removeEventListener(t, go, true)); });
+      };
+      ev.forEach(t => addEventListener(t, go, {capture: true, passive: true}));
+      play();
+    }
+  }
   show();
 })();
 
