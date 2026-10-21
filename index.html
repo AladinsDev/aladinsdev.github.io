@@ -354,11 +354,11 @@ html[dir=rtl] .tl.h li.arrow::before{rotate:-135deg}
 /* Easter eggs : Hadouken (code Konami) et tapis volant (taper « aladin » ou cliquer 5 fois sur le logo) */
 .hdk{position:fixed;inset:0;z-index:9998;pointer-events:none;overflow:hidden}
 .hdk::before{content:"";position:absolute;inset:0;background:#fff;opacity:0;animation:hdkflash .5s ease-out}
-.hdk .ball{position:absolute;top:52%;left:-20vmin;width:18vmin;height:18vmin;margin-top:-9vmin;border-radius:50%;background:radial-gradient(circle at 40% 40%,#fff 0,#c8ecff 18%,#3fa9ff 46%,#1b4dff 70%,transparent 73%);box-shadow:0 0 6vmin 2vmin #3fa9ff,0 0 14vmin 6vmin #1b4dff88;animation:hdkfly 1.25s .35s cubic-bezier(.3,.1,.6,1) forwards}
+.hdk .ball{position:absolute;top:52%;left:-80vmin;width:18vmin;height:18vmin;margin-top:-9vmin;border-radius:50%;background:radial-gradient(circle at 40% 40%,#fff 0,#c8ecff 18%,#3fa9ff 46%,#1b4dff 70%,transparent 73%);box-shadow:0 0 6vmin 2vmin #3fa9ff,0 0 14vmin 6vmin #1b4dff88;animation:hdkfly 1.4s .35s cubic-bezier(.3,.1,.6,1) forwards}
 .hdk .ball::before{content:"";position:absolute;right:55%;top:18%;height:64%;width:55vmin;border-radius:99px;background:linear-gradient(270deg,#3fa9ffd0,transparent);filter:blur(6px)}
 .hdk b{position:absolute;inset-inline:0;top:14%;text-align:center;font:800 clamp(2.2rem,11vw,7rem)/1 Unbounded,system-ui,sans-serif;letter-spacing:-.02em;color:#fff;text-shadow:0 0 30px #3fa9ff,0 0 60px #1b4dff,.05em .05em 0 #1b4dff;animation:hdktxt 1.7s ease forwards}
 .hdk b small{display:block;margin-top:.3em;font:600 .22em Outfit,system-ui,sans-serif;letter-spacing:.5em;color:#c8ecff;text-shadow:0 0 14px #3fa9ff}
-@keyframes hdkfly{to{left:112vw}}
+@keyframes hdkfly{to{left:150vw}}
 @keyframes hdktxt{0%{opacity:0;transform:scale(2.4)}14%{opacity:1;transform:scale(1)}78%{opacity:1}100%{opacity:0;transform:scale(1.08)}}
 @keyframes hdkflash{0%{opacity:.75}100%{opacity:0}}
 .carpet{position:fixed;z-index:9997;top:26vh;left:0;width:clamp(120px,17vw,200px);pointer-events:none;filter:drop-shadow(0 0 14px var(--v));animation:carx 4.8s linear forwards}
