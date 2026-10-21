@@ -159,9 +159,12 @@ footer{margin-top:20px}
 /* Photo + section Formation (défilement horizontal piloté par le scroll) */
 .hero{gap:48px;justify-content:space-between;flex-wrap:wrap}
 .hero>div:first-child{flex:1 1 520px;min-width:0}
-.photo{flex:none;width:clamp(200px,26vw,300px);aspect-ratio:4/5;padding:0;display:grid;place-items:center;border-radius:24px;align-self:flex-start;margin-top:140px}
-.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.photo{flex:none;width:clamp(200px,26vw,300px);padding:0;display:flex;flex-direction:column;border-radius:24px;align-self:flex-start;margin-top:140px}
+.photo img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}
+.photo .pico{aspect-ratio:4/5;display:grid;place-items:center}
 .photo svg{width:46%;fill:var(--lav);opacity:.35}
+.photo .cvb{display:block;width:100%;margin-top:auto;padding:14px 22px;border-radius:0;border:0;border-top:1px solid color-mix(in srgb,var(--v) 35%,transparent);background:color-mix(in srgb,var(--v) 12%,transparent);text-align:center;cursor:pointer;transition:background .2s}
+.photo .cvb:hover{background:color-mix(in srgb,var(--v) 28%,transparent);transform:none;box-shadow:none}
 section[data-t=indigo]{--sec:#6c7bff}
 .edu{padding:0}
 .epin{position:sticky;top:0;height:100vh;height:100dvh;display:flex;flex-direction:column;justify-content:center;gap:28px;overflow:hidden;padding:0 max(20px,calc(50vw - 540px))}
@@ -429,6 +432,7 @@ const D = {
   steam: "https://steamcommunity.com/id/xAladins/",
   youtube: "https://www.youtube.com/@AladinsDev",
   photo: "", // photo professionnelle : dépose le fichier à côté d’index.html et écris son nom, ex. "photo.jpg"
+  cv: "", // CV : dépose cv.pdf à côté d’index.html et écris "cv.pdf" pour activer le bouton Télécharger le CV
   music: "music.mp3", // musique : dépose le fichier (mp3 ou ogg) à côté d’index.html et écris son nom, ex. "music.mp3"
   musicCredit: "窓際の読書(Reading by the window)", // optionnel, affiché à côté du bouton, ex. "Titre – Artiste (CC BY 4.0)"
   musicAutoplay: true, // true = la musique démarre au premier clic n’importe où sur la page
@@ -508,6 +512,7 @@ const LK = {
   ru:["Этот раздел защищён.","Пароль","Открыть","Неверный пароль","Слишком много попыток. Повторите через {s} с.","Показать / скрыть пароль"]
 };
 const lk = i => (LK[document.documentElement.lang] || LK.en)[i];
+const CVL = {fr:"Télécharger le CV", en:"Download CV", ar:"تحميل السيرة الذاتية", de:"Lebenslauf herunterladen", ja:"CVをダウンロード", zh:"下载简历", it:"Scarica CV", es:"Descargar CV", ru:"Скачать резюме"};
 let unlocked = false;
 try { unlocked = sessionStorage.getItem("edu") === D.studiesHash; } catch (e) {}
 sec.classList.toggle("locked", !unlocked);
@@ -604,7 +609,8 @@ trk.addEventListener("touchmove", e => {
   if (Math.abs(x - tp[0]) > Math.abs(y - tp[1])) setP(tp[2] + (tp[0] - x) / (span || 1));
 }, {passive: true});
 trk.addEventListener("touchend", () => { tp = null; });
-$("#photo").innerHTML = D.photo ? `<img src="${D.photo}" alt="Ilyes KECILI">` : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-4.4 0-8 2.2-8 5v3h16v-3c0-2.8-3.6-5-8-5z"/></svg>';
+$("#photo").innerHTML = (D.photo ? `<img src="${D.photo}" alt="Ilyes KECILI">` : '<div class="pico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-4.4 0-8 2.2-8 5v3h16v-3c0-2.8-3.6-5-8-5z"/></svg></div>') + `<a class="btn cvb" id="cvb" href="${D.cv || "#"}"${D.cv ? ' target="_blank" rel="noopener"' : ""}>CV</a>`;
+$("#cvb").addEventListener("click", e => { if (!D.cv) e.preventDefault(); });
 
 function render(l) {
   const T = L[l];
@@ -623,6 +629,7 @@ function render(l) {
   $("#groups").innerHTML = [[25,[28,29]],[26,[30,31,32,42]]].map(([h,it]) => `<div><h3>${T[h]}</h3><div class="chips">${it.map(i => `<span>${T[i]}</span>`).join("")}</div></div>`).join("");
   slide.setAttribute("aria-label", T[53]);
   { const k = LK[l] || LK.en; $("#elt").textContent = k[0]; epw.placeholder = k[1]; epw.setAttribute("aria-label", k[1]); ebtn.textContent = k[2]; eye.title = k[5]; eye.setAttribute("aria-label", k[5]); tick(); }
+  $("#cvb").textContent = CVL[l] || CVL.en;
   const doc = d => `<div class="edoc"><b>${T[d.k]}</b><div class="eimg">${d.img ? `<img src="${d.img}" alt="${T[d.k]}">` : d.pdf ? "PDF" : T[58]}</div>${d.pdf ? `<a class="btn epdf" href="${d.pdf}" target="_blank" rel="noopener">${T[61]}</a>` : `<span class="btn epdf off" aria-disabled="true">${T[62]}</span>`}</div>`;
   trk.innerHTML = (unlocked ? D.edu : D.edu.map(e => ({t: e.t, n: e.n, cur: e.cur, docs: e.docs.map(d => ({k: d.k}))}))).map(e => `<article class="cell ecard${e.docs.length > 1 ? " wide" : ""}"><h3>${e.n ? T[55].replace("{n}", e.n) : T[e.t]}</h3>${e.cur ? `<span class="badge">${T[59]}</span>` : ""}<div class="edocs">${e.docs.map(doc).join("")}</div>${e.avg ? `<div class="egr"><span>${T[63]}</span><b>${e.avg}</b></div>` : ""}${(e.g || []).map(([a, b]) => `<div class="egl"><span>${a}</span><span>${b}</span></div>`).join("")}</article>`).join("");
   layoutEdu();
