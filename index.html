@@ -5,6 +5,20 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Ilyes KECILI – Aladins</title>
 <meta name="description" content="Ilyes KECILI : étudiant ingénieur en électrotechnique et électronique, créateur de jeux. Projets, compétences, événements et chaîne YouTube.">
+<!-- Preview quand le lien est partagé (Discord, Twitter, WhatsApp…) — og.png fait 1200×630 -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ilyes KECILI – Aladins">
+<meta property="og:title" content="Ilyes KECILI – Aladins">
+<meta property="og:description" content="Étudiant ingénieur en électrotechnique et électronique, créateur de jeux. Projets, compétences, événements et chaîne YouTube.">
+<meta property="og:url" content="https://aladinsdev.github.io/">
+<meta property="og:image" content="https://aladinsdev.github.io/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ilyes KECILI – Aladins">
+<meta name="twitter:description" content="Étudiant ingénieur en électrotechnique et électronique, créateur de jeux. Projets, compétences, événements et chaîne YouTube.">
+<meta name="twitter:image" content="https://aladinsdev.github.io/og.png">
 <meta name="theme-color" content="#12082e">
 <link rel="icon" href="favicon.ico" sizes="32x32">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Cdefs%3E%3ClinearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%239b5cff%22/%3E%3Cstop offset=%221%22 stop-color=%22%23e07bff%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%2312082e%22/%3E%3Crect x=%223%22 y=%223%22 width=%2258%22 height=%2258%22 rx=%2211%22 fill=%22none%22 stroke=%22url%28%23g%29%22 stroke-width=%223%22/%3E%3Cpath fill=%22url%28%23g%29%22 fill-rule=%22evenodd%22 d=%22M32 12 50 52h-8.500l-3-8h-13l-3 8H14zM32 26l-4 10h8z%22/%3E%3C/svg%3E" type="image/svg+xml">
@@ -289,6 +303,15 @@ nav{animation:navin .7s ease 2.1s backwards}
 .mbtn:focus-visible{outline:2px solid var(--lav);outline-offset:3px}
 .mbtn .ic{width:20px;height:20px;margin:0}
 .music.on .mbtn{box-shadow:0 0 14px var(--v)}
+.sbtn{all:unset;box-sizing:border-box;cursor:pointer;display:grid;place-items:center;width:38px;height:38px;border-radius:50%;color:var(--lav);border:1px solid color-mix(in srgb,var(--v) 55%,transparent);transition:background .2s,opacity .2s,box-shadow .2s}
+.sbtn:hover{background:color-mix(in srgb,var(--v) 22%,transparent)}
+.sbtn:focus-visible{outline:2px solid var(--lav);outline-offset:3px}
+.sbtn svg{width:18px;height:18px;fill:currentColor}
+.sbtn[aria-pressed=true]{box-shadow:0 0 10px color-mix(in srgb,var(--v) 35%,transparent)}
+.sbtn[aria-pressed=false]{opacity:.5;border-style:dashed}
+.sbtn .off{display:none}
+.sbtn[aria-pressed=false] .on{display:none}
+.sbtn[aria-pressed=false] .off{display:block}
 .mvol{-webkit-appearance:none;appearance:none;width:90px;height:20px;margin:0;background:transparent;cursor:pointer}
 .mvol::-webkit-slider-runnable-track{height:4px;border-radius:99px;background:#ffffff33}
 .mvol::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;margin-top:-5px;border:0;border-radius:50%;background:var(--lav)}
@@ -414,6 +437,7 @@ nav{animation:navin .7s ease 2.1s backwards}
 <div class="music" id="music" hidden>
   <button class="mbtn" id="mbtn" type="button" aria-pressed="false"></button>
   <input class="mvol" id="mvol" type="range" min="0" max="100" value="40">
+  <button class="sbtn" id="sbtn" type="button" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><g class="on"><path d="M5 3l13.2 7.6-5.9 1.7L9.9 19.2z"/></g><g class="off"><path d="M5 3l13.2 7.6-5.9 1.7L9.9 19.2z"/><path d="M4.5 19.5 19.5 4.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></g></svg></button>
   <small id="mcredit"></small>
 </div>
 
@@ -513,6 +537,50 @@ const LK = {
 };
 const lk = i => (LK[document.documentElement.lang] || LK.en)[i];
 const CVL = {fr:"Télécharger le CV", en:"Download CV", ar:"تحميل السيرة الذاتية", de:"Lebenslauf herunterladen", ja:"CVをダウンロード", zh:"下载简历", it:"Scarica CV", es:"Descargar CV", ru:"Скачать резюме"};
+// 🔔 Sons d'interface : synthétisés en Web Audio, aucun fichier son nécessaire
+const SFXL = {fr:"Sons de l'interface", en:"UI sounds", ar:"أصوات الواجهة", de:"Oberflächentöne", ja:"UIサウンド", zh:"界面音效", it:"Effetti sonori UI", es:"Sonidos de la interfaz", ru:"Звуки интерфейса"};
+const SFX = (() => {
+  let ac = null, on = true, last = null;
+  try { on = localStorage.getItem("uis") !== "0"; } catch (e) {}
+  const ensure = () => {
+    if (!ac) { const C = window.AudioContext || window.webkitAudioContext; if (!C) return null; try { ac = new C(); } catch (e) { return null; } }
+    if (ac.state === "suspended") ac.resume().catch(() => {});
+    return ac;
+  };
+  const tone = (f0, f1, dur, vol) => {
+    if (!on) return;
+    const c = ensure(); if (!c) return;
+    const t = c.currentTime;
+    const o = c.createOscillator(), g = c.createGain();
+    o.type = "triangle";
+    o.frequency.setValueAtTime(f0, t);
+    if (f1) o.frequency.exponentialRampToValueAtTime(f1, t + dur);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.linearRampToValueAtTime(vol, t + 0.006);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g); g.connect(c.destination);
+    o.start(t); o.stop(t + dur + 0.03);
+  };
+  const sel = "a,button";
+  if (!matchMedia("(hover: none)").matches) {
+    addEventListener("pointerover", e => { const a = e.target && e.target.closest && e.target.closest(sel); if (!a || a === last) return; last = a; tone(1250, 950, 0.05, 0.03); }, {passive: true});
+    addEventListener("pointerout", e => { const a = e.target && e.target.closest && e.target.closest(sel); if (a === last && (!e.relatedTarget || !a.contains(e.relatedTarget))) last = null; }, {passive: true});
+  }
+  addEventListener("pointerdown", e => {
+    if (e.target && e.target.closest && e.target.closest("#sbtn")) return;
+    if (e.target && e.target.closest && e.target.closest(sel)) tone(680, 420, 0.09, 0.06);
+  }, {passive: true});
+  const btn = document.getElementById("sbtn");
+  const sync = () => btn.setAttribute("aria-pressed", String(on));
+  btn.addEventListener("click", () => {
+    on = !on;
+    try { localStorage.setItem("uis", on ? "1" : "0"); } catch (e) {}
+    sync();
+    if (on) tone(980, 1320, 0.1, 0.05);
+  });
+  sync();
+  return { setLabel: l => { const s = SFXL[l] || SFXL.en; btn.setAttribute("aria-label", s); btn.title = s; } };
+})();
 let unlocked = false;
 try { unlocked = sessionStorage.getItem("edu") === D.studiesHash; } catch (e) {}
 sec.classList.toggle("locked", !unlocked);
@@ -630,6 +698,7 @@ function render(l) {
   slide.setAttribute("aria-label", T[53]);
   { const k = LK[l] || LK.en; $("#elt").textContent = k[0]; epw.placeholder = k[1]; epw.setAttribute("aria-label", k[1]); ebtn.textContent = k[2]; eye.title = k[5]; eye.setAttribute("aria-label", k[5]); tick(); }
   $("#cvb").textContent = CVL[l] || CVL.en;
+  SFX.setLabel(l);
   const doc = d => `<div class="edoc"><b>${T[d.k]}</b><div class="eimg">${d.img ? `<img src="${d.img}" alt="${T[d.k]}">` : d.pdf ? "PDF" : T[58]}</div>${d.pdf ? `<a class="btn epdf" href="${d.pdf}" target="_blank" rel="noopener">${T[61]}</a>` : `<span class="btn epdf off" aria-disabled="true">${T[62]}</span>`}</div>`;
   trk.innerHTML = (unlocked ? D.edu : D.edu.map(e => ({t: e.t, n: e.n, cur: e.cur, docs: e.docs.map(d => ({k: d.k}))}))).map(e => `<article class="cell ecard${e.docs.length > 1 ? " wide" : ""}"><h3>${e.n ? T[55].replace("{n}", e.n) : T[e.t]}</h3>${e.cur ? `<span class="badge">${T[59]}</span>` : ""}<div class="edocs">${e.docs.map(doc).join("")}</div>${e.avg ? `<div class="egr"><span>${T[63]}</span><b>${e.avg}</b></div>` : ""}${(e.g || []).map(([a, b]) => `<div class="egl"><span>${a}</span><span>${b}</span></div>`).join("")}</article>`).join("");
   layoutEdu();
