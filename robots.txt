@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+# Les justificatifs d’études ne doivent pas apparaître dans Google
+Disallow: /studies/
+
+Sitemap: https://aladinsdev.github.io/sitemap.xml
